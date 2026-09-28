@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='28' fill='%230EA5E9'/%3E%3Cpath d='M30 55 Q40 65 50 55 T70 55' stroke='%23FFFFFF' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='38' cy='42' r='5' fill='%23FFFFFF'/%3E%3Ccircle cx='62' cy='42' r='5' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Our Facilities &middot; SwimKids Water Safety Academy</title>
+
+    <script src="tailwind.js"></script>
+    <style>
+        :root, html[data-theme='light'] {
+            --color-background: #FFFFFF;
+            --color-primary-text: #0C4A6E;
+            --color-secondary-text: #475569;
+            --color-accent: #0EA5E9;
+            --color-accent-light: #38BDF8;
+            --color-accent-dark: #0284C7;
+            --color-border: #E0F2FE;
+            --color-hover: #F0F9FF;
+            --color-footer-bg: #082F49;
+            --color-footer-text: #FFFFFF;
+        }
+        html[data-theme='dark'] {
+            --color-background: #082F49;
+            --color-primary-text: #F0F9FF;
+            --color-secondary-text: #7DD3FC;
+            --color-accent: #38BDF8;
+            --color-accent-light: #7DD3FC;
+            --color-accent-dark: #0EA5E9;
+            --color-border: #0C4A6E;
+            --color-hover: #0C4A6E;
+            --color-footer-bg: #082F49;
+            --color-footer-text: #FFFFFF;
+        }
+
+        body {
+            background-color: var(--color-background);
+            color: var(--color-primary-text);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        .text-primary-text { color: var(--color-primary-text); }
+        .text-secondary-text { color: var(--color-secondary-text); }
+        .text-accent { color: var(--color-accent); }
+        .bg-background { background-color: var(--color-background); }
+        .bg-hover { background-color: var(--color-hover); }
+        .bg-accent { background-color: var(--color-accent); }
+        .border-border { border-color: var(--color-border); }
+        .border-accent { border-color: var(--color-accent); }
+        .hover\:text-accent:hover { color: var(--color-accent) !important; }
+
+        #main-footer {
+            background-color: var(--color-footer-bg);
+            color: var(--color-footer-text);
+        }
+        #main-footer .footer-heading { color: var(--color-accent) !important; }
+        #main-footer .footer-link:hover { color: var(--color-accent); padding-left: 4px; transition: all 0.2s ease; }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 2.5px;
+            background-color: var(--color-accent);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+            border-radius: 4px;
+        }
+        .nav-link:hover::after { transform: scaleX(1); }
+        .nav-link.active { color: var(--color-accent) !important; font-weight: 600; }
+        .nav-link.active::after { transform: scaleX(1); }
+
+        .dropdown-wrapper { position: relative; }
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            background-color: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: 0.75rem;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        .dropdown-wrapper:hover .dropdown-menu {
+            opacity: 1; visibility: visible; transform: translateY(0);
+            display: block;
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 0.6rem 1.2rem;
+            color: var(--color-primary-text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .dropdown-menu a:last-child { border-bottom: none; }
+        .dropdown-menu a:hover {
+            background-color: var(--color-hover);
+            color: var(--color-accent);
+            padding-left: 1.5rem;
+        }
+        .dropdown-menu a i { width: 20px; color: var(--color-accent); }
+
+        @media (max-width: 1024px) {
+            .dropdown-menu { position: static; display: none; opacity: 1; visibility: visible; transform: none; box-shadow: none; }
+            .dropdown-wrapper:hover .dropdown-menu { display: block; }
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background: var(--color-accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-outline:hover {
+            background: var(--color-accent);
+            color: white;
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
+        }
+        html[data-theme='dark'] .btn-outline:hover {
+            background: var(--color-accent);
+            color: #082F49;
+        }
+
+        .img-placeholder {
+            background: var(--color-hover);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--color-secondary-text);
+            min-height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+        .dark .img-placeholder { background: #0C4A6E; }
+
+        .water-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(14, 165, 233, 0.06);
+            pointer-events: none;
+        }
+
+        /* ====== FACILITIES PAGE SPECIFIC STYLES ====== */
+        /* Facility Card */
+        .facility-card {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .facility-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px -12px rgba(14, 165, 233, 0.25);
+            border-color: var(--color-accent);
+        }
+        .facility-card .card-image {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .facility-card .card-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+        }
+        .facility-card .card-image .img-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: var(--color-accent);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.25rem 0.9rem;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 2;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
+        }
+        .facility-card .card-body {
+            padding: 1.6rem 1.5rem 1.8rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .facility-card .card-body h3 {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--color-primary-text);
+        }
+        .facility-card .card-body p {
+            font-size: 0.85rem;
+            color: var(--color-secondary-text);
+            margin-top: 0.6rem;
+            line-height: 1.6;
+        }
+        .facility-card .card-body .feature-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1rem;
+        }
+        .facility-card .card-body .feature-list span {
+            font-size: 0.68rem;
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--color-accent);
+            padding: 0.2rem 0.75rem;
+            border-radius: 100px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .dark .facility-card .card-body .feature-list span {
+            background: rgba(14, 165, 233, 0.15);
+        }
+
+        /* Feature Card (for sections 2/3 small cards) */
+        .mini-feature {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 1.2rem 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .mini-feature:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.1);
+        }
+        .mini-feature .mini-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--color-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            margin: 0 auto 0.6rem;
+        }
+        .dark .mini-feature .mini-icon {
+            background: rgba(14, 165, 233, 0.15);
+        }
+        .mini-feature h5 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-primary-text);
+        }
+        .mini-feature p {
+            font-size: 0.7rem;
+            color: var(--color-secondary-text);
+            margin-top: 0.2rem;
+        }
+
+        /* Safety Equipment Card */
+        .equipment-card {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 1.8rem 1.5rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            height: 100%;
+        }
+        .equipment-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-accent);
+            box-shadow: 0 12px 30px rgba(14, 165, 233, 0.1);
+        }
+        .equipment-card .eq-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.25);
+            transition: transform 0.3s ease;
+        }
+        .equipment-card:hover .eq-icon {
+            transform: scale(1.1) rotate(-6deg);
+        }
+        .equipment-card h4 {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--color-primary-text);
+        }
+        .equipment-card p {
+            font-size: 0.82rem;
+            color: var(--color-secondary-text);
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Changing Room Card */
+        .changing-card {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+            height: 100%;
+        }
+        .changing-card:hover {
+            border-color: var(--color-accent);
+            transform: translateX(6px);
+            box-shadow: 0 12px 28px -8px rgba(14, 165, 233, 0.15);
+        }
+        .changing-card .changing-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--color-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+        .dark .changing-card .changing-icon {
+            background: rgba(14, 165, 233, 0.15);
+        }
+        .changing-card h4 {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--color-primary-text);
+        }
+        .changing-card p {
+            font-size: 0.82rem;
+            color: var(--color-secondary-text);
+            margin-top: 0.25rem;
+            line-height: 1.5;
+        }
+
+        /* Cleanliness Card */
+        .clean-card {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            height: 100%;
+        }
+        .clean-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--color-accent);
+            box-shadow: 0 20px 40px -12px rgba(14, 165, 233, 0.2);
+        }
+        .clean-card .clean-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin: 0 auto 1rem;
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.25);
+        }
+        .clean-card h4 {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--color-primary-text);
+        }
+        .clean-card p {
+            font-size: 0.82rem;
+            color: var(--color-secondary-text);
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Stat Block */
+        .stat-block {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .stat-block:hover {
+            transform: translateY(-4px);
+            border-color: var(--color-accent);
+            box-shadow: 0 12px 30px rgba(14, 165, 233, 0.1);
+        }
+        .stat-block .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--color-accent);
+            line-height: 1;
+        }
+        .stat-block .stat-label {
+            font-size: 0.78rem;
+            color: var(--color-secondary-text);
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <!-- ======== HEADER / NAVIGATION ======== -->
+    <header class="sticky top-0 z-50 transition-colors duration-300 shadow-md border-b border-border bg-background" id="main-header">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between h-[72px]">
+            <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tight flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-accent/25" style="background-color: #0EA5E9;">
+                    <i class="fa-solid fa-person-swimming text-white text-lg"></i>
+                </div>
+                <span style="color: #0EA5E9;">Swim<span style="color: #0EA5E9;">Kids</span></span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <div class="hidden xl:flex items-center space-x-5">
+                <div class="flex space-x-4 rtl:space-x-reverse rtl:ml-6 text-primary-text font-medium">
+                    <div class="dropdown-wrapper">
+                        <button class="nav-link flex items-center" id="home-dropdown-btn">
+                            Home <svg class="w-3 h-3 ml-1 relative top-[2px] transition-transform duration-200 text-primary-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="index.html"><i class="fas fa-home"></i> Home 1</a>
+                            <a href="home2.html"><i class="fas fa-home"></i> Home 2</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="instructors.html" class="nav-link">Instructors</a>
+                    <a href="facilities.html" class="nav-link active">Facilities</a>
+                    <a href="achievements.html" class="nav-link">Achievements</a>
+                    <a href="programs.html" class="nav-link">Programs</a>
+                    <a href="contact.html" class="nav-link">Contact</a>
+                    
+                    <div class="dropdown-wrapper">
+                        <button class="nav-link flex items-center">
+                            Dashboard <svg class="w-3 h-3 ml-1 relative top-[2px] transition-transform duration-200 text-primary-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="admin-dashboard.html"><i class="fas fa-user-cog"></i> Admin</a>
+                            <a href="customer-dashboard.html"><i class="fas fa-user"></i> Customer</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-px h-6 bg-border mx-2"></div>
+
+                <div class="flex items-center gap-3">
+                    <button id="theme-toggle" class="text-primary-text hover:text-accent p-2 rounded-md border border-border transition duration-200" title="Toggle Theme">
+                        <svg class="w-5 h-5 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg class="w-5 h-5 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                    <button id="rtl-toggle" class="text-primary-text hover:text-accent p-2 rounded-md border border-border transition duration-200" title="Toggle RTL">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg>
+                    </button>
+
+                    <div class="flex items-center gap-2 ml-2">
+                        <a href="login.html" class="btn-outline px-5 py-2 rounded-full font-semibold text-sm shadow-sm hover:shadow-lg transition-shadow">Login</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xl:hidden flex items-center">
+                <button id="mobile-menu-open" class="text-primary-text hover:text-accent p-1.5 rounded-full">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ======== MAIN CONTENT ======== -->
+    <main class="flex-grow">
+
+        <!-- ======== SECTION 1: HERO ======== -->
+        <section class="relative overflow-hidden py-12 lg:py-20 bg-gradient-to-br from-brand-aqua via-brand-bg to-brand-aqua dark:from-brand-dark dark:via-brand-dark-card dark:to-brand-dark">
+            <div class="water-shape w-96 h-96 -top-20 -right-20"></div>
+            <div class="water-shape w-80 h-80 bottom-10 -left-20"></div>
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-border text-sm font-semibold text-accent shadow-sm mb-5">
+                        <i class="fa-solid fa-building"></i> World-Class Facilities
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary-text leading-tight">
+                        A Safe Space for <span class="text-accent">Every Swimmer</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-secondary-text max-w-2xl mx-auto mt-5 leading-relaxed">
+                        Our purpose-built facility is designed with your child's safety and comfort in mind. From heated pools to family-friendly changing rooms, every detail matters.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4 mt-8">
+                        <a href="#facility" class="btn-primary px-8 py-3.5 rounded-full font-bold text-base shadow-lg shadow-accent/20">Explore Facilities</a>
+                        <a href="contact.html" class="btn-outline px-8 py-3.5 rounded-full font-bold text-base">Book a Tour</a>
+                    </div>
+                    <div class="mt-8 flex flex-wrap justify-center gap-6 text-sm">
+                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-accent"></i> <span class="text-secondary-text font-semibold">Indoor Heated Pool</span></div>
+                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-accent"></i> <span class="text-secondary-text font-semibold">Family Friendly</span></div>
+                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-accent"></i> <span class="text-secondary-text font-semibold">Sanitized Daily</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== SECTION 2: SWIMMING POOL ======== -->
+        <section id="facility" class="py-16 bg-background">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-accent/10 text-accent uppercase tracking-wider mb-3">Main Pool</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Our Swimming <span class="text-accent">Pool</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">A state-of-the-art 25-meter indoor pool, heated to a comfortable 90°F year-round.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
+                    <div class="facility-card">
+                        <div class="card-image" style="background-image: url('assests/f.jpg');">
+                            <span class="img-badge">Heated Indoor</span>
+                        </div>
+                        <div class="card-body">
+                            <h3>25-Meter Heated Pool</h3>
+                            <p>Our main pool features six lanes with a consistent depth of 4 feet, perfect for lessons, lap swimming, and water safety drills. The UV and ozone purification system keeps water crystal clear and chemical-balanced.</p>
+                            <div class="feature-list">
+                                <span>90°F Heated</span>
+                                <span>6 Lanes</span>
+                                <span>UV Purified</span>
+                                <span>4 ft Depth</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="mini-feature">
+                            <div class="mini-icon"><i class="fas fa-temperature-half"></i></div>
+                            <h5>90°F Warm</h5>
+                            <p>Comfortable year-round</p>
+                        </div>
+                        <div class="mini-feature">
+                            <div class="mini-icon"><i class="fas fa-ruler-horizontal"></i></div>
+                            <h5>25m Length</h5>
+                            <p>Olympic-inspired</p>
+                        </div>
+                        <div class="mini-feature">
+                            <div class="mini-icon"><i class="fas fa-water"></i></div>
+                            <h5>UV &amp; Ozone</h5>
+                            <p>Advanced purification</p>
+                        </div>
+                        <div class="mini-feature">
+                            <div class="mini-icon"><i class="fas fa-eye"></i></div>
+                            <h5>Lifeguard On Duty</h5>
+                            <p>Always supervised</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== SECTION 3: KIDS POOL ======== -->
+        <section class="py-16 bg-hover border-y border-border">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-background border border-border text-accent uppercase tracking-wider mb-3">Kids Only</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Dedicated <span class="text-accent">Kids Pool</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">A shallow, warm pool designed specifically for our youngest swimmers (ages 3–7).</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
+                    <div class="grid grid-cols-2 gap-4 order-2 lg:order-1">
+                        <div class="mini-feature">
+                            <div class="mini-icon"><i class="fas fa-child"></i></div>
+                            <h5>2.5 ft Depth</h5>
+                            <p>Safe for beginners</p>
+                        </div>
+                        <div class="mini-feature">
+                            <div class="mini-icon"><i class="fas fa-temperature-high"></i></div>
+                            <h5>92°F Warm</h5>
+                            <p>Extra cozy</p>
+                        </div>
+                        <div class="mini-feature">
+                            <div class="mini-icon"><i class="fas fa-water-ladder"></i></div>
+                            <h5>Easy Access</h5>
+                            <p>Wide entry steps</p>
+                        </div>
+                        <div class="mini-feature">
+                            <div class="mini-icon"><i class="fas fa-shield-halved"></i></div>
+                            <h5>Soft Floor</h5>
+                            <p>Non-slip surface</p>
+                        </div>
+                    </div>
+
+                    <div class="facility-card order-1 lg:order-2">
+                        <div class="card-image" style="background-image: url('assests/f1.jpg');">
+                            <span class="img-badge">Ages 3–7</span>
+                        </div>
+                        <div class="card-body">
+                            <h3>Warm Kids Pool</h3>
+                            <p>A dedicated shallow pool heated to 92°F, designed to make young children feel safe and comfortable. Wide entry steps, non-slip floors, and plenty of colorful toys make this the perfect introduction to water.</p>
+                            <div class="feature-list">
+                                <span>2.5 ft Deep</span>
+                                <span>92°F Warm</span>
+                                <span>Soft Floor</span>
+                                <span>Toys Included</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== SECTION 4: SAFETY EQUIPMENT ======== -->
+        <section class="py-16 bg-background">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-accent/10 text-accent uppercase tracking-wider mb-3">Safety First</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Safety <span class="text-accent">Equipment</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">Comprehensive safety equipment available poolside and throughout our facility.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    <div class="equipment-card">
+                        <div class="eq-icon"><i class="fas fa-life-ring"></i></div>
+                        <h4>Life Rings &amp; Buoys</h4>
+                        <p>Multiple rescue rings and torpedo buoys mounted at every corner of the pool for immediate access.</p>
+                    </div>
+                    <div class="equipment-card">
+                        <div class="eq-icon"><i class="fas fa-hand-holding"></i></div>
+                        <h4>Reaching Poles</h4>
+                        <p>Long rescue poles placed strategically around the deck to assist anyone in distress without entering the water.</p>
+                    </div>
+                    <div class="equipment-card">
+                        <div class="eq-icon"><i class="fas fa-kit-medical"></i></div>
+                        <h4>First Aid Stations</h4>
+                        <p>Fully stocked first aid kits and AED devices located in the pool area and changing rooms.</p>
+                    </div>
+                    <div class="equipment-card">
+                        <div class="eq-icon"><i class="fas fa-wheelchair"></i></div>
+                        <h4>Pool Lifts</h4>
+                        <p>ADA-compliant pool lifts for swimmers with mobility challenges, ensuring everyone can enjoy the water.</p>
+                    </div>
+                    <div class="equipment-card">
+                        <div class="eq-icon"><i class="fas fa-vest"></i></div>
+                        <h4>Life Jackets</h4>
+                        <p>Various sizes of US Coast Guard-approved life jackets available free for all students and parents.</p>
+                    </div>
+                    <div class="equipment-card">
+                        <div class="eq-icon"><i class="fas fa-phone-volume"></i></div>
+                        <h4>Emergency Phones</h4>
+                        <p>Dedicated emergency phone lines near the pool deck connecting directly to local emergency services.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== SECTION 5: CHANGING ROOMS ======== -->
+        <section class="py-16 bg-hover border-y border-border">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-background border border-border text-accent uppercase tracking-wider mb-3">Comfort &amp; Convenience</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Changing <span class="text-accent">Rooms</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">Clean, spacious, family-friendly changing rooms designed for kids and parents.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
+                    <div class="facility-card">
+                        <div class="card-image" style="background-image: url('https://www.interfixgroup.com/wp-content/uploads/2020/07/timthumb-5.jpeg');">
+                            <span class="img-badge">Family Friendly</span>
+                        </div>
+                        <div class="card-body">
+                            <h3>Spacious Changing Rooms</h3>
+                            <p>Our changing facilities include separate men's and women's sections, plus private family changing rooms for parents with young children. Each room is equipped with benches, lockers, and non-slip flooring.</p>
+                            <div class="feature-list">
+                                <span>Family Rooms</span>
+                                <span>Lockers</span>
+                                <span>Non-Slip Floor</span>
+                                <span>Hair Dryers</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="changing-card">
+                            <div class="changing-icon"><i class="fas fa-shower"></i></div>
+                            <div>
+                                <h4>Private Showers</h4>
+                                <p>Individual shower cubicles with adjustable water temperature, shampoo, and body wash provided.</p>
+                            </div>
+                        </div>
+                        <div class="changing-card">
+                            <div class="changing-icon"><i class="fas fa-lock"></i></div>
+                            <div>
+                                <h4>Secure Lockers</h4>
+                                <p>Free digital lockers for all members and guests. Lock your belongings safely during lessons.</p>
+                            </div>
+                        </div>
+                        <div class="changing-card">
+                            <div class="changing-icon"><i class="fas fa-baby"></i></div>
+                            <div>
+                                <h4>Baby Changing Stations</h4>
+                                <p>Dedicated baby changing stations in both family rooms and the main changing areas.</p>
+                            </div>
+                        </div>
+                        <div class="changing-card">
+                            <div class="changing-icon"><i class="fas fa-wind"></i></div>
+                            <div>
+                                <h4>Hair Dryers</h4>
+                                <p>Complimentary hair dryers available in each changing room for your convenience.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== SECTION 6: CLEAN & SAFE ENVIRONMENT ======== -->
+        <section class="py-16 bg-background">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-accent/10 text-accent uppercase tracking-wider mb-3">Our Commitment</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Clean &amp; Safe <span class="text-accent">Environment</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">We maintain the highest standards of cleanliness and safety so you can focus on learning.</p>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mb-12">
+                    <div class="stat-block">
+                        <div class="stat-number">3x</div>
+                        <div class="stat-label">Daily Sanitization</div>
+                    </div>
+                    <div class="stat-block">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Water Tested</div>
+                    </div>
+                    <div class="stat-block">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Safety Incidents</div>
+                    </div>
+                    <div class="stat-block">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Air Filtration</div>
+                    </div>
+                </div>
+
+                <!-- Clean Cards -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    <div class="clean-card">
+                        <div class="clean-icon"><i class="fas fa-spray-can-sparkles"></i></div>
+                        <h4>Deep Cleaning 3x Daily</h4>
+                        <p>Our pool deck, changing rooms, and common areas are deep-cleaned three times each day using child-safe, eco-friendly disinfectants.</p>
+                    </div>
+                    <div class="clean-card">
+                        <div class="clean-icon"><i class="fas fa-flask-vial"></i></div>
+                        <h4>Water Quality Testing</h4>
+                        <p>Pool water is tested hourly for pH, chlorine, and bacteria levels. Results are posted daily for transparency.</p>
+                    </div>
+                    <div class="clean-card">
+                        <div class="clean-icon"><i class="fas fa-wind"></i></div>
+                        <h4>HEPA Air Filtration</h4>
+                        <p>Our HVAC system uses hospital-grade HEPA filters with UV-C light, circulating fresh air every 6 minutes.</p>
+                    </div>
+                    <div class="clean-card">
+                        <div class="clean-icon"><i class="fas fa-hand-sparkles"></i></div>
+                        <h4>Hand Sanitizer Stations</h4>
+                        <p>Touchless hand sanitizer stations are placed throughout the facility, including at every entrance and exit.</p>
+                    </div>
+                    <div class="clean-card">
+                        <div class="clean-icon"><i class="fas fa-shoe-prints"></i></div>
+                        <h4>Sanitized Flooring</h4>
+                        <p>All flooring is non-slip and sanitized regularly with child-safe cleaning solutions that don't irritate skin.</p>
+                    </div>
+                    <div class="clean-card">
+                        <div class="clean-icon"><i class="fas fa-user-shield"></i></div>
+                        <h4>Trained Cleaning Staff</h4>
+                        <p>Our dedicated cleaning team is trained in child-safe sanitation practices and works around the clock.</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="contact.html" class="btn-primary px-8 py-3.5 rounded-full font-semibold inline-flex items-center gap-2 shadow-lg shadow-accent/20">
+                        <i class="fas fa-calendar-check"></i> Book a Facility Tour
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======== MOBILE DRAWER ======== -->
+    <div id="mobile-menu-drawer" class="fixed inset-0 z-50 pointer-events-none transition-all duration-300">
+        <div id="drawer-backdrop" class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+        <div id="drawer-content" class="absolute top-0 left-0 right-0 bg-background rounded-b-2xl shadow-2xl p-6 xl:hidden max-h-[85vh] overflow-y-auto transform translate-y-[-100%] transition-transform duration-300 ease-out">
+            <div class="flex justify-between items-center pb-4 border-b border-border">
+                <a href="index.html" class="text-2xl font-bold tracking-tight flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background-color: #0EA5E9;">
+                        <i class="fa-solid fa-person-swimming text-white text-sm"></i>
+                    </div>
+                    <span style="color: #0EA5E9;">Swim<span style="color: #0EA5E9;">Kids</span></span>
+                </a>
+                <button id="mobile-menu-close" class="text-primary-text hover:text-accent"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            <nav class="flex flex-col space-y-1 py-4">
+                <div>
+                    <button class="block text-primary-text font-semibold text-lg py-2 w-full text-left flex justify-between items-center" id="mobile-homes-toggle">
+                        Home <svg class="w-4 h-4 transform transition-transform duration-200 text-primary-text" id="homes-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="mobile-homes-menu" class="hidden pl-4 flex flex-col space-y-1 mt-1 border-l-2 border-border">
+                        <a href="index.html" class="block text-secondary-text hover:text-accent text-base py-1">Home 1</a>
+                        <a href="home2.html" class="block text-secondary-text hover:text-accent text-base py-1">Home 2</a>
+                    </div>
+                </div>
+                <a href="about.html" class="block text-primary-text font-semibold text-lg py-2">About</a>
+                <a href="instructors.html" class="block text-primary-text font-semibold text-lg py-2">Instructors</a>
+                <a href="facilities.html" class="block text-primary-text font-semibold text-lg py-2 text-accent">Facilities</a>
+                <a href="achievements.html" class="block text-primary-text font-semibold text-lg py-2">Achievements</a>
+                <a href="programs.html" class="block text-primary-text font-semibold text-lg py-2">Programs</a>
+                <a href="contact.html" class="block text-primary-text font-semibold text-lg py-2">Contact</a>
+                <div>
+                    <button class="block text-primary-text font-semibold text-lg py-2 w-full text-left flex justify-between items-center" id="mobile-dash-toggle">
+                        Dashboard <svg class="w-4 h-4 transform transition-transform duration-200 text-primary-text" id="dash-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="mobile-dash-menu" class="hidden pl-4 flex flex-col space-y-1 mt-1 border-l-2 border-border">
+                        <a href="admin-dashboard.html" class="block text-secondary-text hover:text-accent text-base py-1"><i class="fas fa-user-cog w-5"></i> Admin</a>
+                        <a href="customer-dashboard.html" class="block text-secondary-text hover:text-accent text-base py-1"><i class="fas fa-user w-5"></i> Customer</a>
+                    </div>
+                </div>
+            </nav>
+            <div class="pt-4 border-t border-border mt-2 flex justify-around items-center">
+                <button id="drawer-rtl-toggle" class="flex flex-col items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg><span class="text-xs mt-1 text-secondary-text">RTL</span></button>
+                <button id="drawer-theme-toggle" class="flex flex-col items-center">
+                    <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                    <span class="text-xs mt-1 text-secondary-text">Theme</span>
+                </button>
+            </div>
+            <div class="flex mt-5 gap-4 w-full">
+                <a href="login.html" class="flex-1 btn-outline text-center py-2 rounded-full font-semibold text-sm shadow-sm">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======== FOOTER ======== -->
+    <footer id="main-footer" class="pt-16 transition-colors duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-gray-800">
+                <div>
+                    <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tight flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-accent/25" style="background-color: #0EA5E9;">
+                            <i class="fa-solid fa-person-swimming text-white text-lg"></i>
+                        </div>
+                        <span style="color: #0EA5E9;">Swim<span style="color: #0EA5E9;">Kids</span></span>
+                    </a>
+                    <p class="text-gray-400 text-sm mt-4 leading-relaxed">Building confident swimmers and water-safe kids since 2015.</p>
+                    <div class="flex gap-4 mt-6">
+                        <a href="#" class="text-gray-400 hover:text-accent transition text-xl"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-accent transition text-xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-accent transition text-xl"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-accent transition text-xl"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-heading font-bold text-lg mb-5">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="about.html" class="footer-link text-gray-400 hover:text-accent transition">About</a></li>
+                        <li><a href="instructors.html" class="footer-link text-gray-400 hover:text-accent transition">Instructors</a></li>
+                        <li><a href="facilities.html" class="footer-link text-gray-400 hover:text-accent transition">Facilities</a></li>
+                        <li><a href="achievements.html" class="footer-link text-gray-400 hover:text-accent transition">Achievements</a></li>
+                        <li><a href="programs.html" class="footer-link text-gray-400 hover:text-accent transition">Programs</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading font-bold text-lg mb-5">Support</h4>
+                    <ul class="space-y-3">
+                        <li><a href="contact.html" class="footer-link text-gray-400 hover:text-accent transition">Contact</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-accent transition">FAQs</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-accent transition">Help Center</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-accent transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading font-bold text-lg mb-5">Contact</h4>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li class="flex items-center gap-3"><i class="fas fa-map-marker-alt text-accent"></i> 123 Aqua Lane, Beach City</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-phone text-accent"></i> (555) 123-4567</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-envelope text-accent"></i> info@swimkids.com</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-clock text-accent"></i> Mon–Sat 8am – 8pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="py-8 text-center text-gray-500 text-sm">© 2026 SwimKids Academy. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <!-- ======== SCRIPTS ======== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const html = document.documentElement;
+
+            // Mobile Drawer
+            const menuDrawer = document.getElementById('mobile-menu-drawer');
+            const menuContent = document.getElementById('drawer-content');
+            const menuBackdrop = document.getElementById('drawer-backdrop');
+
+            const openDrawer = () => {
+                menuDrawer.classList.remove('pointer-events-none');
+                menuContent.classList.remove('translate-y-[-100%]');
+                menuBackdrop.classList.add('opacity-50', 'pointer-events-auto');
+                document.body.style.overflow = 'hidden';
+            };
+            const closeDrawer = () => {
+                menuContent.classList.add('translate-y-[-100%]');
+                menuBackdrop.classList.remove('opacity-50', 'pointer-events-auto');
+                setTimeout(() => { menuDrawer.classList.add('pointer-events-none'); document.body.style.overflow = ''; }, 300);
+            };
+
+            document.getElementById('mobile-menu-open').addEventListener('click', openDrawer);
+            document.getElementById('mobile-menu-close').addEventListener('click', closeDrawer);
+            menuBackdrop.addEventListener('click', closeDrawer);
+
+            // Mobile Accordions
+            const setupAccordion = (toggleId, menuId, iconId) => {
+                const toggle = document.getElementById(toggleId);
+                toggle?.addEventListener('click', () => {
+                    const menu = document.getElementById(menuId);
+                    const icon = document.getElementById(iconId);
+                    if(menu) menu.classList.toggle('hidden');
+                    if(icon) icon.classList.toggle('rotate-180');
+                });
+            };
+            setupAccordion('mobile-homes-toggle', 'mobile-homes-menu', 'homes-icon');
+            setupAccordion('mobile-dash-toggle', 'mobile-dash-menu', 'dash-icon');
+
+            // Theme Toggle
+            const themeToggles = [document.getElementById('theme-toggle'), document.getElementById('drawer-theme-toggle')];
+            const applyTheme = (theme) => {
+                html.setAttribute('data-theme', theme);
+                document.querySelectorAll('.light-icon').forEach(i => i.classList.toggle('hidden', theme === 'dark'));
+                document.querySelectorAll('.dark-icon').forEach(i => i.classList.toggle('hidden', theme === 'light'));
+            };
+            themeToggles.forEach(btn => btn?.addEventListener('click', () => {
+                const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                localStorage.setItem('theme', next);
+                applyTheme(next);
+            }));
+            applyTheme(localStorage.getItem('theme') || 'light');
+
+            // RTL Toggle
+            const rtlToggles = [document.getElementById('rtl-toggle'), document.getElementById('drawer-rtl-toggle')];
+            rtlToggles.forEach(btn => btn?.addEventListener('click', () => {
+                const current = html.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl';
+                html.setAttribute('dir', current);
+                localStorage.setItem('dir', current);
+            }));
+            const savedDir = localStorage.getItem('dir');
+            if (savedDir) html.setAttribute('dir', savedDir);
+
+            // Active Nav Logic
+            const setActiveNavLink = () => {
+                const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+                
+                // Desktop Nav Links
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+
+                // Dropdown items
+                document.querySelectorAll('.dropdown-menu a').forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        link.classList.add('text-accent', 'bg-hover', 'font-semibold');
+                        link.style.paddingLeft = '1.5rem';
+                        
+                        const parent = link.closest('.dropdown-wrapper');
+                        if (parent) {
+                            const btn = parent.querySelector('.nav-link');
+                            if (btn) btn.classList.add('active');
+                        }
+                    }
+                });
+
+                // Mobile links
+                document.querySelectorAll('#mobile-homes-menu a, #mobile-dash-menu a, nav a.block').forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        link.classList.add('text-accent');
+                        link.classList.remove('text-primary-text', 'text-secondary-text');
+                    }
+                });
+            };
+            setActiveNavLink();
+        });
+    </script>
+</body>
+</html>

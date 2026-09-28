@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='28' fill='%230EA5E9'/%3E%3Cpath d='M30 55 Q40 65 50 55 T70 55' stroke='%23FFFFFF' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='38' cy='42' r='5' fill='%23FFFFFF'/%3E%3Ccircle cx='62' cy='42' r='5' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <title>Contact Us &middot; SwimKids Water Safety Academy</title>
+
+    <script src="tailwind.js"></script>
+    <style>
+        :root, html[data-theme='light'] {
+            --color-background: #FFFFFF;
+            --color-primary-text: #0C4A6E;
+            --color-secondary-text: #475569;
+            --color-accent: #0EA5E9;
+            --color-accent-light: #38BDF8;
+            --color-accent-dark: #0284C7;
+            --color-border: #E0F2FE;
+            --color-hover: #F0F9FF;
+            --color-footer-bg: #082F49;
+            --color-footer-text: #FFFFFF;
+        }
+        html[data-theme='dark'] {
+            --color-background: #082F49;
+            --color-primary-text: #F0F9FF;
+            --color-secondary-text: #7DD3FC;
+            --color-accent: #38BDF8;
+            --color-accent-light: #7DD3FC;
+            --color-accent-dark: #0EA5E9;
+            --color-border: #0C4A6E;
+            --color-hover: #0C4A6E;
+            --color-footer-bg: #082F49;
+            --color-footer-text: #FFFFFF;
+        }
+
+        body {
+            background-color: var(--color-background);
+            color: var(--color-primary-text);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        .text-primary-text { color: var(--color-primary-text); }
+        .text-secondary-text { color: var(--color-secondary-text); }
+        .text-accent { color: var(--color-accent); }
+        .bg-background { background-color: var(--color-background); }
+        .bg-hover { background-color: var(--color-hover); }
+        .bg-accent { background-color: var(--color-accent); }
+        .border-border { border-color: var(--color-border); }
+        .border-accent { border-color: var(--color-accent); }
+        .hover\:text-accent:hover { color: var(--color-accent) !important; }
+
+        #main-footer {
+            background-color: var(--color-footer-bg);
+            color: var(--color-footer-text);
+        }
+        #main-footer .footer-heading { color: var(--color-accent) !important; }
+        #main-footer .footer-link:hover { color: var(--color-accent); padding-left: 4px; transition: all 0.2s ease; }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+            padding-top: 0.25rem;
+            padding-bottom: 0.25rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 2.5px;
+            background-color: var(--color-accent);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+            border-radius: 4px;
+        }
+        .nav-link:hover::after { transform: scaleX(1); }
+        .nav-link.active { color: var(--color-accent) !important; font-weight: 600; }
+        .nav-link.active::after { transform: scaleX(1); }
+
+        .dropdown-wrapper { position: relative; }
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            background-color: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: 0.75rem;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        .dropdown-wrapper:hover .dropdown-menu {
+            opacity: 1; visibility: visible; transform: translateY(0);
+            display: block;
+        }
+        .dropdown-menu a {
+            display: block;
+            padding: 0.6rem 1.2rem;
+            color: var(--color-primary-text);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .dropdown-menu a:last-child { border-bottom: none; }
+        .dropdown-menu a:hover {
+            background-color: var(--color-hover);
+            color: var(--color-accent);
+            padding-left: 1.5rem;
+        }
+        .dropdown-menu a i { width: 20px; color: var(--color-accent); }
+
+        @media (max-width: 1024px) {
+            .dropdown-menu { position: static; display: none; opacity: 1; visibility: visible; transform: none; box-shadow: none; }
+            .dropdown-wrapper:hover .dropdown-menu { display: block; }
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            background: var(--color-accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.3);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .btn-outline:hover {
+            background: var(--color-accent);
+            color: white;
+            box-shadow: 0 4px 16px rgba(14, 165, 233, 0.25);
+        }
+        html[data-theme='dark'] .btn-outline:hover {
+            background: var(--color-accent);
+            color: #082F49;
+        }
+
+        .img-placeholder {
+            background: var(--color-hover);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--color-secondary-text);
+            min-height: 180px;
+            background-size: cover;
+            background-position: center;
+        }
+        .dark .img-placeholder { background: #0C4A6E; }
+
+        .water-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(14, 165, 233, 0.06);
+            pointer-events: none;
+        }
+
+        /* ====== CONTACT PAGE SPECIFIC STYLES ====== */
+        /* Contact Card */
+        .contact-card {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light), var(--color-accent));
+            background-size: 200% 100%;
+            animation: shimmerLine 3s ease-in-out infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .contact-card:hover::before { opacity: 1; }
+        @keyframes shimmerLine {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px -12px rgba(14, 165, 233, 0.25);
+            border-color: var(--color-accent);
+        }
+        .contact-card .contact-icon {
+            width: 68px;
+            height: 68px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            margin: 0 auto 1rem;
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.25);
+            transition: transform 0.3s ease;
+        }
+        .contact-card:hover .contact-icon {
+            transform: scale(1.1) rotate(-6deg);
+        }
+        .contact-card h4 {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--color-primary-text);
+        }
+        .contact-card p {
+            font-size: 0.85rem;
+            color: var(--color-secondary-text);
+            margin-top: 0.4rem;
+            line-height: 1.6;
+        }
+        .contact-card .contact-action {
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .contact-card .contact-action:hover {
+            text-decoration: underline;
+        }
+
+        /* Detail Row Card */
+        .detail-row {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: 18px;
+            padding: 1.3rem 1.4rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+            height: 100%;
+        }
+        .detail-row:hover {
+            border-color: var(--color-accent);
+            transform: translateX(6px);
+            box-shadow: 0 12px 28px -8px rgba(14, 165, 233, 0.15);
+        }
+        .detail-row .detail-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--color-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .dark .detail-row .detail-icon {
+            background: rgba(14, 165, 233, 0.15);
+        }
+        .detail-row .detail-content h5 {
+            font-size: 0.68rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-secondary-text);
+        }
+        .detail-row .detail-content p {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--color-primary-text);
+            margin-top: 0.15rem;
+        }
+
+        /* Enquiry Card */
+        .enquiry-card {
+            background: var(--color-background);
+            border: 1px solid var(--color-border);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            transition: all 0.3s ease;
+            text-align: center;
+            height: 100%;
+        }
+        .enquiry-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--color-accent);
+            box-shadow: 0 20px 40px -12px rgba(14, 165, 233, 0.2);
+        }
+        .enquiry-card .enquiry-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.25);
+        }
+        .enquiry-card h4 {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--color-primary-text);
+        }
+        .enquiry-card p {
+            font-size: 0.82rem;
+            color: var(--color-secondary-text);
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+        .enquiry-card .enquiry-link {
+            display: inline-block;
+            margin-top: 0.9rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+        .enquiry-card .enquiry-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Map Container */
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 28px;
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--color-border);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 420px;
+            border: 0;
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .map-container iframe { height: 320px; }
+        }
+        @media (max-width: 480px) {
+            .map-container iframe { height: 260px; }
+        }
+        .map-overlay {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(8, 47, 73, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 0.6rem 1.6rem;
+            border-radius: 60px;
+            color: white;
+            font-weight: 700;
+            font-size: 0.78rem;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            white-space: nowrap;
+            z-index: 5;
+        }
+        @media (max-width: 480px) {
+            .map-overlay {
+                font-size: 0.65rem;
+                padding: 0.4rem 1rem;
+                white-space: normal;
+                bottom: 12px;
+                width: max-content;
+                max-width: 90%;
+                text-align: center;
+            }
+        }
+        .map-overlay i { color: var(--color-accent); margin-right: 6px; }
+
+        /* Form Styles */
+        .form-input {
+            width: 100%;
+            padding: 0.65rem 1rem;
+            border-radius: 12px;
+            border: 1.5px solid var(--color-border);
+            background: var(--color-background);
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+            color: var(--color-primary-text);
+            font-size: 0.9rem;
+        }
+        .dark .form-input {
+            background: var(--color-background);
+            border-color: var(--color-border);
+            color: var(--color-primary-text);
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+        }
+        .form-input::placeholder {
+            color: #94A3B8;
+            font-weight: 400;
+        }
+        .dark .form-input::placeholder {
+            color: #64748B;
+        }
+        .form-textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
+        .form-label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--color-secondary-text);
+            margin-bottom: 0.4rem;
+        }
+        select.form-input {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%230EA5E9'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.1rem;
+            padding-right: 2.5rem;
+        }
+        [dir="rtl"] select.form-input {
+            background-position: left 1rem center;
+            padding-right: 1.1rem;
+            padding-left: 2.5rem;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <!-- ======== HEADER / NAVIGATION ======== -->
+    <header class="sticky top-0 z-50 transition-colors duration-300 shadow-md border-b border-border bg-background" id="main-header">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between h-[72px]">
+            <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tight flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-accent/25" style="background-color: #0EA5E9;">
+                    <i class="fa-solid fa-person-swimming text-white text-lg"></i>
+                </div>
+                <span style="color: #0EA5E9;">Swim<span style="color: #0EA5E9;">Kids</span></span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <div class="hidden xl:flex items-center space-x-5">
+                <div class="flex space-x-4 rtl:space-x-reverse rtl:ml-6 text-primary-text font-medium">
+                    <div class="dropdown-wrapper">
+                        <button class="nav-link flex items-center" id="home-dropdown-btn">
+                            Home <svg class="w-3 h-3 ml-1 relative top-[2px] transition-transform duration-200 text-primary-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="index.html"><i class="fas fa-home"></i> Home 1</a>
+                            <a href="home2.html"><i class="fas fa-home"></i> Home 2</a>
+                        </div>
+                    </div>
+                    <a href="about.html" class="nav-link">About</a>
+                    <a href="instructors.html" class="nav-link">Instructors</a>
+                    <a href="facilities.html" class="nav-link">Facilities</a>
+                    <a href="achievements.html" class="nav-link">Achievements</a>
+                    <a href="programs.html" class="nav-link">Programs</a>
+                    <a href="contact.html" class="nav-link active">Contact</a>
+                    
+                    <div class="dropdown-wrapper">
+                        <button class="nav-link flex items-center">
+                            Dashboard <svg class="w-3 h-3 ml-1 relative top-[2px] transition-transform duration-200 text-primary-text" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="dropdown-menu">
+                            <a href="admin-dashboard.html"><i class="fas fa-user-cog"></i> Admin</a>
+                            <a href="customer-dashboard.html"><i class="fas fa-user"></i> Customer</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-px h-6 bg-border mx-2"></div>
+
+                <div class="flex items-center gap-3">
+                    <button id="theme-toggle" class="text-primary-text hover:text-accent p-2 rounded-md border border-border transition duration-200" title="Toggle Theme">
+                        <svg class="w-5 h-5 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg class="w-5 h-5 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
+                    <button id="rtl-toggle" class="text-primary-text hover:text-accent p-2 rounded-md border border-border transition duration-200" title="Toggle RTL">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg>
+                    </button>
+
+                    <div class="flex items-center gap-2 ml-2">
+                        <a href="login.html" class="btn-outline px-5 py-2 rounded-full font-semibold text-sm shadow-sm hover:shadow-lg transition-shadow">Login</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xl:hidden flex items-center">
+                <button id="mobile-menu-open" class="text-primary-text hover:text-accent p-1.5 rounded-full">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ======== MAIN CONTENT ======== -->
+    <main class="flex-grow">
+
+        <!-- ======== SECTION 1: HERO ======== -->
+        <section class="relative overflow-hidden py-12 lg:py-20 bg-gradient-to-br from-brand-aqua via-brand-bg to-brand-aqua dark:from-brand-dark dark:via-brand-dark-card dark:to-brand-dark">
+            <div class="water-shape w-96 h-96 -top-20 -right-20"></div>
+            <div class="water-shape w-80 h-80 bottom-10 -left-20"></div>
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="max-w-4xl mx-auto text-center">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-border text-sm font-semibold text-accent shadow-sm mb-5">
+                        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span> We Reply Within 24 Hours
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary-text leading-tight">
+                        Let's Get Your Child <span class="text-accent">Swimming</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-secondary-text max-w-2xl mx-auto mt-5 leading-relaxed">
+                        Have questions about our programs, schedules, or fees? Reach out to our friendly team — we're here to help you every step of the way.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4 mt-8">
+                        <a href="#enquiry" class="btn-primary px-8 py-3.5 rounded-full font-bold text-base shadow-lg shadow-accent/20">Class Enquiry</a>
+                        <a href="#map" class="btn-outline px-8 py-3.5 rounded-full font-bold text-base">Find Our Pool</a>
+                    </div>
+                    <div class="mt-8 flex flex-wrap justify-center gap-8 text-sm">
+                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-accent"></i> <span class="text-secondary-text">Free Trial Available</span></div>
+                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-accent"></i> <span class="text-secondary-text">Same-Day Response</span></div>
+                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-accent"></i> <span class="text-secondary-text">Flexible Scheduling</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== SECTION 2: GET IN TOUCH ======== -->
+        <section class="py-16 bg-background">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-accent/10 text-accent uppercase tracking-wider mb-3">Connect With Us</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Get in <span class="text-accent">Touch</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">Choose the most convenient way to reach our team.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <h4>Call Us</h4>
+                        <p>Speak directly with our enrollment team for immediate assistance.</p>
+                        <p class="font-bold text-accent mt-2">(555) 123-4567</p>
+                        <a href="tel:5551234567" class="contact-action">Call Now →</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <h4>Email Us</h4>
+                        <p>Send us your questions and we'll respond within 24 hours.</p>
+                        <p class="font-bold text-accent mt-2">info@swimkids.com</p>
+                        <a href="mailto:info@swimkids.com" class="contact-action">Send Email →</a>
+                    </div>
+                    <div class="contact-card sm:col-span-2 lg:col-span-1">
+                        <div class="contact-icon"><i class="fas fa-comment-dots"></i></div>
+                        <h4>Live Chat</h4>
+                        <p>Chat with our support team during business hours for quick answers.</p>
+                        <p class="font-bold text-accent mt-2">Mon–Sat, 8am–8pm</p>
+                        <a href="#enquiry" class="contact-action">Start Chat →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== SECTION 3: CONTACT DETAILS ======== -->
+        <section class="py-16 bg-hover border-y border-border">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-background border border-border text-accent uppercase tracking-wider mb-3">Quick Info</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Contact <span class="text-accent">Details</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">Everything you need to reach us at a glance.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fas fa-map-pin"></i></div>
+                        <div class="detail-content">
+                            <h5>Our Address</h5>
+                            <p>123 Aqua Lane, Beach City, CA 90210</p>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fas fa-phone"></i></div>
+                        <div class="detail-content">
+                            <h5>Phone Number</h5>
+                            <p>(555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="detail-content">
+                            <h5>Email Address</h5>
+                            <p>info@swimkids.com</p>
+                        </div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-icon"><i class="fas fa-clock"></i></div>
+                        <div class="detail-content">
+                            <h5>Opening Hours</h5>
+                            <p>Mon–Sat: 8am – 8pm</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== SECTION 4: OUR LOCATION (MAP) ======== -->
+        <section id="map" class="py-16 bg-background">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-accent/10 text-accent uppercase tracking-wider mb-3">Visit Us</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Our <span class="text-accent">Location</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">Conveniently located with free parking and easy access from the highway.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-start">
+                    <div class="lg:col-span-2">
+                        <div class="map-container">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3307.876425845405!2d-118.40243068447499!3d33.9413286805357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2b45e3f40b9c5%3A0x8f5d9a1f0c1a4b9d!2sLos%20Angeles%20International%20Airport!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                            <div class="map-overlay">
+                                <i class="fas fa-person-swimming"></i> SwimKids Academy · Beach City
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="detail-row">
+                            <div class="detail-icon"><i class="fas fa-car"></i></div>
+                            <div class="detail-content">
+                                <h5>Free Parking</h5>
+                                <p>Over 50 free parking spaces on-site</p>
+                            </div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-icon"><i class="fas fa-bus"></i></div>
+                            <div class="detail-content">
+                                <h5>Public Transit</h5>
+                                <p>Bus routes 12, 45, and 78 stop nearby</p>
+                            </div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-icon"><i class="fas fa-wheelchair"></i></div>
+                            <div class="detail-content">
+                                <h5>Fully Accessible</h5>
+                                <p>Wheelchair friendly entrances & pool lifts</p>
+                            </div>
+                        </div>
+                        <a href="https://www.google.com/maps/dir//123+Aqua+Lane+Beach+City+CA+90210" target="_blank" class="btn-primary w-full py-3 rounded-full font-semibold text-center inline-block shadow-lg shadow-accent/20">
+                            <i class="fas fa-directions"></i> Get Directions
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== SECTION 5: CLASS ENQUIRY ======== -->
+        <section class="py-16 bg-hover border-y border-border">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-background border border-border text-accent uppercase tracking-wider mb-3">Book a Session</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Class <span class="text-accent">Enquiry</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">Tell us about your child and we'll recommend the perfect program.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                    <div class="enquiry-card">
+                        <div class="enquiry-icon"><i class="fas fa-baby"></i></div>
+                        <h4>Toddler Programs</h4>
+                        <p>For ages 6 months to 3 years. Parent &amp; me classes to build water comfort.</p>
+                        <a href="#message" class="enquiry-link">Enquire Now →</a>
+                    </div>
+                    <div class="enquiry-card">
+                        <div class="enquiry-icon"><i class="fas fa-child"></i></div>
+                        <h4>Kids Programs</h4>
+                        <p>For ages 4 to 8 years. Independent lessons focused on strokes and safety.</p>
+                        <a href="#message" class="enquiry-link">Enquire Now →</a>
+                    </div>
+                    <div class="enquiry-card sm:col-span-2 lg:col-span-1">
+                        <div class="enquiry-icon"><i class="fas fa-medal"></i></div>
+                        <h4>Advanced Levels</h4>
+                        <p>For ages 9+ years. Competitive strokes, endurance, and lifeguard training.</p>
+                        <a href="#message" class="enquiry-link">Enquire Now →</a>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-10">
+                    <div class="bg-background border border-border rounded-2xl p-6 text-center h-full">
+                        <div class="text-2xl font-extrabold text-accent min-h-[4rem] flex items-center justify-center">Free Trial</div>
+                        <p class="text-secondary-text text-sm mt-2">Try any program risk-free before enrolling.</p>
+                    </div>
+                    <div class="bg-background border border-border rounded-2xl p-6 text-center h-full">
+                        <div class="text-2xl font-extrabold text-accent min-h-[4rem] flex items-center justify-center">Flexible Payment</div>
+                        <p class="text-secondary-text text-sm mt-2">Monthly plans and sibling discounts available.</p>
+                    </div>
+                    <div class="bg-background border border-border rounded-2xl p-6 text-center h-full">
+                        <div class="text-2xl font-extrabold text-accent min-h-[4rem] flex items-center justify-center">Quick Response</div>
+                        <p class="text-secondary-text text-sm mt-2">Hear back from us within 24 hours, guaranteed.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== SECTION 6: SEND A MESSAGE ======== -->
+        <section id="message" class="py-16 bg-background">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-accent/10 text-accent uppercase tracking-wider mb-3">Drop Us a Line</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Send a <span class="text-accent">Message</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">Fill in the form below and we'll get back to you shortly.</p>
+                </div>
+
+                <div class="max-w-2xl mx-auto">
+                    <div class="bg-hover border border-border rounded-3xl p-6 md:p-8">
+                        <form class="space-y-3">
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="form-label">Parent's Full Name</label>
+                                    <input type="text" class="form-input" placeholder="Jane Smith" required>
+                                </div>
+                                <div>
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-input" placeholder="jane@example.com" required>
+                                </div>
+                            </div>
+
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-input" placeholder="(555) 123-4567">
+                                </div>
+                                <div>
+                                    <label class="form-label">Child's Age</label>
+                                    <input type="text" class="form-input" placeholder="e.g., 5 years old">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="form-label">Program of Interest</label>
+                                <select class="form-input" required>
+                                    <option value="" disabled selected>Select a program...</option>
+                                    <option>Toddler Program (6 months – 3 years)</option>
+                                    <option>Kids Program (4 – 8 years)</option>
+                                    <option>Beginner Level</option>
+                                    <option>Intermediate Level</option>
+                                    <option>Advanced Level</option>
+                                    <option>Not sure — need advice</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="form-label">Your Message</label>
+                                <textarea class="form-input form-textarea" placeholder="Tell us about your child's swimming experience, preferred schedule, or any questions you have..." required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-primary w-full py-3 rounded-full font-bold text-base shadow-lg shadow-accent/20 inline-flex items-center justify-center gap-2">
+                                <i class="fas fa-paper-plane"></i> Send Message
+                            </button>
+                        </form>
+                        <p class="text-center text-xs text-secondary-text mt-4">
+                            <i class="fas fa-lock text-accent mr-1"></i> Your information is safe with us and will never be shared.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======== MOBILE DRAWER ======== -->
+    <div id="mobile-menu-drawer" class="fixed inset-0 z-50 pointer-events-none transition-all duration-300">
+        <div id="drawer-backdrop" class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+        <div id="drawer-content" class="absolute top-0 left-0 right-0 bg-background rounded-b-2xl shadow-2xl p-6 xl:hidden max-h-[85vh] overflow-y-auto transform translate-y-[-100%] transition-transform duration-300 ease-out">
+            <div class="flex justify-between items-center pb-4 border-b border-border">
+                <a href="index.html" class="text-2xl font-bold tracking-tight flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background-color: #0EA5E9;">
+                        <i class="fa-solid fa-person-swimming text-white text-sm"></i>
+                    </div>
+                    <span style="color: #0EA5E9;">Swim<span style="color: #0EA5E9;">Kids</span></span>
+                </a>
+                <button id="mobile-menu-close" class="text-primary-text hover:text-accent"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            <nav class="flex flex-col space-y-1 py-4">
+                <div>
+                    <button class="block text-primary-text font-semibold text-lg py-2 w-full text-left flex justify-between items-center" id="mobile-homes-toggle">
+                        Home <svg class="w-4 h-4 transform transition-transform duration-200 text-primary-text" id="homes-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="mobile-homes-menu" class="hidden pl-4 flex flex-col space-y-1 mt-1 border-l-2 border-border">
+                        <a href="index.html" class="block text-secondary-text hover:text-accent text-base py-1">Home 1</a>
+                        <a href="home2.html" class="block text-secondary-text hover:text-accent text-base py-1">Home 2</a>
+                    </div>
+                </div>
+                <a href="about.html" class="block text-primary-text font-semibold text-lg py-2">About</a>
+                <a href="instructors.html" class="block text-primary-text font-semibold text-lg py-2">Instructors</a>
+                <a href="facilities.html" class="block text-primary-text font-semibold text-lg py-2">Facilities</a>
+                <a href="achievements.html" class="block text-primary-text font-semibold text-lg py-2">Achievements</a>
+                <a href="programs.html" class="block text-primary-text font-semibold text-lg py-2">Programs</a>
+                <a href="contact.html" class="block text-primary-text font-semibold text-lg py-2 text-accent">Contact</a>
+                <div>
+                    <button class="block text-primary-text font-semibold text-lg py-2 w-full text-left flex justify-between items-center" id="mobile-dash-toggle">
+                        Dashboard <svg class="w-4 h-4 transform transition-transform duration-200 text-primary-text" id="dash-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="mobile-dash-menu" class="hidden pl-4 flex flex-col space-y-1 mt-1 border-l-2 border-border">
+                        <a href="admin-dashboard.html" class="block text-secondary-text hover:text-accent text-base py-1"><i class="fas fa-user-cog w-5"></i> Admin</a>
+                        <a href="customer-dashboard.html" class="block text-secondary-text hover:text-accent text-base py-1"><i class="fas fa-user w-5"></i> Customer</a>
+                    </div>
+                </div>
+            </nav>
+            <div class="pt-4 border-t border-border mt-2 flex justify-around items-center">
+                <button id="drawer-rtl-toggle" class="flex flex-col items-center"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" /></svg><span class="text-xs mt-1 text-secondary-text">RTL</span></button>
+                <button id="drawer-theme-toggle" class="flex flex-col items-center">
+                    <svg class="w-6 h-6 light-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                    <svg class="w-6 h-6 dark-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+                    <span class="text-xs mt-1 text-secondary-text">Theme</span>
+                </button>
+            </div>
+            <div class="flex mt-5 gap-4 w-full">
+                <a href="login.html" class="flex-1 btn-outline text-center py-2 rounded-full font-semibold text-sm shadow-sm">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======== FOOTER ======== -->
+    <footer id="main-footer" class="pt-16 transition-colors duration-300">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 pb-12 border-b border-gray-800">
+                <div>
+                    <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tight flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-accent/25" style="background-color: #0EA5E9;">
+                            <i class="fa-solid fa-person-swimming text-white text-lg"></i>
+                        </div>
+                        <span style="color: #0EA5E9;">Swim<span style="color: #0EA5E9;">Kids</span></span>
+                    </a>
+                    <p class="text-gray-400 text-sm mt-4 leading-relaxed">Building confident swimmers and water-safe kids since 2015.</p>
+                    <div class="flex gap-4 mt-6">
+                        <a href="#" class="text-gray-400 hover:text-accent transition text-xl"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-accent transition text-xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-accent transition text-xl"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-accent transition text-xl"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-heading font-bold text-lg mb-5">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="about.html" class="footer-link text-gray-400 hover:text-accent transition">About</a></li>
+                        <li><a href="instructors.html" class="footer-link text-gray-400 hover:text-accent transition">Instructors</a></li>
+                        <li><a href="facilities.html" class="footer-link text-gray-400 hover:text-accent transition">Facilities</a></li>
+                        <li><a href="achievements.html" class="footer-link text-gray-400 hover:text-accent transition">Achievements</a></li>
+                        <li><a href="programs.html" class="footer-link text-gray-400 hover:text-accent transition">Programs</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading font-bold text-lg mb-5">Support</h4>
+                    <ul class="space-y-3">
+                        <li><a href="contact.html" class="footer-link text-gray-400 hover:text-accent transition">Contact</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-accent transition">FAQs</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-accent transition">Help Center</a></li>
+                        <li><a href="#" class="footer-link text-gray-400 hover:text-accent transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading font-bold text-lg mb-5">Contact</h4>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li class="flex items-center gap-3"><i class="fas fa-map-marker-alt text-accent"></i> 123 Aqua Lane, Beach City</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-phone text-accent"></i> (555) 123-4567</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-envelope text-accent"></i> info@swimkids.com</li>
+                        <li class="flex items-center gap-3"><i class="fas fa-clock text-accent"></i> Mon–Sat 8am – 8pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="py-8 text-center text-gray-500 text-sm">© 2026 SwimKids Academy. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <!-- ======== SCRIPTS ======== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const html = document.documentElement;
+
+            // Mobile Drawer
+            const menuDrawer = document.getElementById('mobile-menu-drawer');
+            const menuContent = document.getElementById('drawer-content');
+            const menuBackdrop = document.getElementById('drawer-backdrop');
+
+            const openDrawer = () => {
+                menuDrawer.classList.remove('pointer-events-none');
+                menuContent.classList.remove('translate-y-[-100%]');
+                menuBackdrop.classList.add('opacity-50', 'pointer-events-auto');
+                document.body.style.overflow = 'hidden';
+            };
+            const closeDrawer = () => {
+                menuContent.classList.add('translate-y-[-100%]');
+                menuBackdrop.classList.remove('opacity-50', 'pointer-events-auto');
+                setTimeout(() => { menuDrawer.classList.add('pointer-events-none'); document.body.style.overflow = ''; }, 300);
+            };
+
+            document.getElementById('mobile-menu-open').addEventListener('click', openDrawer);
+            document.getElementById('mobile-menu-close').addEventListener('click', closeDrawer);
+            menuBackdrop.addEventListener('click', closeDrawer);
+
+            // Mobile Accordions
+            const setupAccordion = (toggleId, menuId, iconId) => {
+                const toggle = document.getElementById(toggleId);
+                toggle?.addEventListener('click', () => {
+                    const menu = document.getElementById(menuId);
+                    const icon = document.getElementById(iconId);
+                    if(menu) menu.classList.toggle('hidden');
+                    if(icon) icon.classList.toggle('rotate-180');
+                });
+            };
+            setupAccordion('mobile-homes-toggle', 'mobile-homes-menu', 'homes-icon');
+            setupAccordion('mobile-dash-toggle', 'mobile-dash-menu', 'dash-icon');
+
+            // Theme Toggle
+            const themeToggles = [document.getElementById('theme-toggle'), document.getElementById('drawer-theme-toggle')];
+            const applyTheme = (theme) => {
+                html.setAttribute('data-theme', theme);
+                document.querySelectorAll('.light-icon').forEach(i => i.classList.toggle('hidden', theme === 'dark'));
+                document.querySelectorAll('.dark-icon').forEach(i => i.classList.toggle('hidden', theme === 'light'));
+            };
+            themeToggles.forEach(btn => btn?.addEventListener('click', () => {
+                const next = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                localStorage.setItem('theme', next);
+                applyTheme(next);
+            }));
+            applyTheme(localStorage.getItem('theme') || 'light');
+
+            // RTL Toggle
+            const rtlToggles = [document.getElementById('rtl-toggle'), document.getElementById('drawer-rtl-toggle')];
+            rtlToggles.forEach(btn => btn?.addEventListener('click', () => {
+                const current = html.getAttribute('dir') === 'rtl' ? 'ltr' : 'rtl';
+                html.setAttribute('dir', current);
+                localStorage.setItem('dir', current);
+            }));
+            const savedDir = localStorage.getItem('dir');
+            if (savedDir) html.setAttribute('dir', savedDir);
+
+            // Active Nav Logic
+            const setActiveNavLink = () => {
+                const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+                
+                // Desktop Nav Links
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+
+                // Dropdown items
+                document.querySelectorAll('.dropdown-menu a').forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        link.classList.add('text-accent', 'bg-hover', 'font-semibold');
+                        link.style.paddingLeft = '1.5rem';
+                        
+                        const parent = link.closest('.dropdown-wrapper');
+                        if (parent) {
+                            const btn = parent.querySelector('.nav-link');
+                            if (btn) btn.classList.add('active');
+                        }
+                    }
+                });
+
+                // Mobile links
+                document.querySelectorAll('#mobile-homes-menu a, #mobile-dash-menu a, nav a.block').forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        link.classList.add('text-accent');
+                        link.classList.remove('text-primary-text', 'text-secondary-text');
+                    }
+                });
+            };
+            setActiveNavLink();
+
+            // Form Submission
+            const contactForm = document.querySelector('#message form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const btn = contactForm.querySelector('button[type="submit"]');
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Message Sent!';
+                    btn.classList.add('bg-green-500');
+                    btn.style.background = '#22C55E';
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.background = '';
+                        btn.classList.remove('bg-green-500');
+                        contactForm.reset();
+                    }, 3000);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

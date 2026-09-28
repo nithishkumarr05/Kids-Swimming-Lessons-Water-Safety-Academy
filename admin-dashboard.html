@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏊</text></svg>">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <title>SwimKids | Parent Dashboard - Swim & Water Safety Academy</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* --- SwimKids Theme --- */
+        :root, html[data-theme='light'] {
+            --color-background: #FFFFFF;
+            --color-primary-text: #1E293B;
+            --color-secondary-text: #64748B;
+            --color-accent: #0EA5E9;
+            --color-accent-light: #38BDF8;
+            --color-border: #E2E8F0;
+            --color-hover: #F8FAFC;
+            --color-card-bg: #FFFFFF;
+            --color-sidebar-bg: #F8FAFC;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-danger: #EF4444;
+        }
+        html[data-theme='dark'] {
+            --color-background: #0F172A;
+            --color-primary-text: #F8FAFC;
+            --color-secondary-text: #94A3B8;
+            --color-accent: #38BDF8;
+            --color-accent-light: #0EA5E9;
+            --color-border: #1E293B;
+            --color-hover: #1E293B;
+            --color-card-bg: #1E293B;
+            --color-sidebar-bg: #0F172A;
+            --color-success: #34D399;
+            --color-warning: #FBBF24;
+            --color-danger: #F87171;
+        }
+
+        body {
+            background-color: var(--color-background);
+            color: var(--color-primary-text);
+            font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .text-accent { color: var(--color-accent); }
+        .text-accent-light { color: var(--color-accent-light); }
+        .bg-background { background-color: var(--color-background); }
+        .bg-hover { background-color: var(--color-hover); }
+        .border-border { border-color: var(--color-border); }
+        .card-bg { background-color: var(--color-card-bg); }
+        .bg-sidebar { background-color: var(--color-sidebar-bg); }
+
+        .dashboard-card {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px -8px rgba(10, 75, 110, 0.08);
+        }
+        .dashboard-card:hover {
+            border-color: var(--color-accent-light);
+            box-shadow: 0 12px 28px -12px rgba(255, 179, 71, 0.2);
+        }
+
+        .bg-ocean-gradient {
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+        }
+        .bg-coral-gradient {
+            background: linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-accent) 100%);
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            border-radius: 1rem;
+            color: var(--color-secondary-text);
+            transition: all 0.2s ease;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            cursor: pointer;
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            background: linear-gradient(135deg, var(--color-accent), #1C7A9E);
+            color: white;
+        }
+        .sidebar-link:hover svg, .sidebar-link.active svg {
+            stroke: white;
+        }
+
+        .badge-success { background: rgba(15,139,111,0.12); color: var(--color-success); }
+        .badge-warning { background: rgba(255,179,71,0.15); color: #B36B00; }
+        .badge-danger { background: rgba(214,79,58,0.12); color: var(--color-danger); }
+        .badge-info { background: rgba(28,122,158,0.12); color: var(--color-accent); }
+
+        #mobile-overlay {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            position: fixed;
+            inset: 0;
+            z-index: 55;
+        }
+        #mobile-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .btn-coral {
+            background: var(--color-accent);
+            color: white;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .btn-coral:hover {
+            background: var(--color-accent-light);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+        }
+        .btn-outline-ocean {
+            border: 1px solid var(--color-accent);
+            color: var(--color-accent);
+            transition: 0.2s;
+        }
+        .btn-outline-ocean:hover {
+            background: var(--color-accent);
+            color: white;
+        }
+
+        .progress-bar {
+            height: 8px;
+            border-radius: 9999px;
+            background: var(--color-border);
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
+        }
+
+        html[dir="rtl"] .sidebar-link { flex-direction: row-reverse; }
+        html[dir="rtl"] .ml-auto { margin-right: auto; margin-left: 0; }
+    </style>
+</head>
+<body class="antialiased bg-background">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 bg-background border-b border-border transition-colors">
+        <div class="max-w-[1920px] mx-auto px-2 sm:px-6 lg:px-8 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-4">
+                    <button id="mobile-menu-toggle" class="lg:hidden p-1 sm:p-2 rounded-xl hover:bg-hover transition">
+                        <svg class="w-6 h-6 text-primary-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tight flex items-center gap-2.5 flex-shrink-0">
+                        <div class="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg shadow-accent/25" style="background-color: #0EA5E9;">
+                            <i class="fa-solid fa-person-swimming text-white text-lg"></i>
+                        </div>
+                        <span style="color: #0EA5E9;">Swim<span style="color: #0EA5E9;">Kids</span></span>
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <div class="hidden sm:flex items-center gap-2 bg-hover px-4 py-2 rounded-xl">
+                        <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                        <span class="text-sm font-medium">Pool Open · Lessons On</span>
+                    </div>
+
+                    <button id="lang-toggle" class="p-1 sm:p-2 rounded-full hover:bg-hover transition">
+                        <svg class="w-6 h-6 text-primary-text" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                        </svg>
+                    </button>
+
+                    <button id="theme-toggle" class="p-1 sm:p-2 rounded-full hover:bg-hover transition">
+                        <svg class="w-5 h-5 light-icon text-primary-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        <svg class="w-5 h-5 dark-icon hidden text-primary-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+
+                    <div class="flex items-center gap-1 sm:gap-2 pl-2 sm:pl-3 border-l border-border">
+                        <div class="w-9 h-9 rounded-full bg-ocean-gradient flex items-center justify-center text-white font-bold text-sm">
+                            MJ
+                        </div>
+                        <div class="hidden sm:block">
+                            <p class="text-sm font-medium">Maya Johnson</p>
+                            <p class="text-xs text-secondary-text">Parent · 2 swimmers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="mobile-overlay" class="lg:hidden"></div>
+
+    <main class="max-w-[1920px] mx-auto px-2 sm:px-6 lg:px-8 py-6">
+        <div class="flex flex-col lg:flex-row gap-6">
+            <!-- SIDEBAR -->
+            <aside id="sidebar" class="fixed lg:sticky top-0 lg:top-24 left-0 h-full lg:h-fit w-80 z-[60] lg:z-10 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 bg-sidebar lg:bg-transparent">
+                <div class="dashboard-card p-5 h-full lg:h-auto overflow-y-auto">
+                    <div class="flex lg:hidden justify-between items-center mb-6">
+                        <span class="font-bold text-accent-light">Parent Menu</span>
+                        <button id="close-sidebar" class="p-2 hover:bg-hover rounded-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-3 pb-5 mb-4 border-b border-border">
+                        <div class="w-12 h-12 rounded-full bg-ocean-gradient flex items-center justify-center text-white font-medium text-xl">
+                            MJ
+                        </div>
+                        <div>
+                            <p class="font-serif font-bold">Maya Johnson</p>
+                            <p class="text-xs text-secondary-text">maya.j@email.com</p>
+                        </div>
+                    </div>
+
+                    <nav class="flex flex-col gap-1">
+                        <p class="text-xs uppercase tracking-wider text-secondary-text font-bold px-3 mb-2">Swim Academy</p>
+                        
+                        <a href="#" data-section="overview" class="sidebar-link active">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                            <span>Family Overview</span>
+                        </a>
+
+                        <a href="#" data-section="enroll" class="sidebar-link">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9h14M5 15h14M6 3h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2z" />
+                            </svg>
+                            <span>Enroll in Level</span>
+                        </a>
+
+                        <a href="#" data-section="progress" class="sidebar-link">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>Skills & Badges</span>
+                            <span class="ml-auto bg-accent-light text-white text-xs px-2 py-0.5 rounded-full">5</span>
+                        </a>
+
+                        <a href="#" data-section="schedule" class="sidebar-link">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <span>Lesson Schedule</span>
+                        </a>
+
+                        <a href="#" data-section="notes" class="sidebar-link">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                            <span>Instructor Notes</span>
+                        </a>
+
+                        <a href="#" data-section="payments" class="sidebar-link">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                            </svg>
+                            <span>Payments & Billing</span>
+                        </a>
+
+                        <a href="#" data-section="settings" class="sidebar-link">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            <span>Account Settings</span>
+                        </a>
+
+                        <a href="login.html" id="logoutBtn" class="sidebar-link mt-4 border-t border-border pt-3 text-red-500 hover:text-white hover:bg-red-500">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
+                            </svg>
+                            <span>Logout</span>
+                        </a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- MAIN CONTENT -->
+            <div class="flex-1 min-w-0 space-y-6">
+
+                <!-- Welcome Message -->
+                <div class="mb-4">
+                    <h1 class="text-3xl font-serif font-semibold text-primary-text">Welcome back, Maya! 🌊</h1>
+                    <p class="text-secondary-text mt-1 text-sm">Here's your family's swim progress, upcoming lessons, and water safety updates.</p>
+                </div>
+
+                <!-- OVERVIEW SECTION -->
+                <div id="overview" class="admin-section">
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                        <div class="dashboard-card p-6">
+                            <div class="flex justify-between h-full">
+                                <div class="flex flex-col h-full">
+                                    <p class="text-secondary-text text-sm min-h-[2.5rem]">Enrolled Swimmers</p>
+                                    <p class="text-3xl font-semibold mt-1 whitespace-nowrap">2</p>
+                                    <p class="text-xs text-emerald-600 mt-auto pt-2">Leo & Zoe · active</p>
+                                </div>
+                                <div class="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent-light">
+                                    <i class="fas fa-child text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card p-6">
+                            <div class="flex justify-between h-full">
+                                <div class="flex flex-col h-full">
+                                    <p class="text-secondary-text text-sm min-h-[2.5rem]">Current Level</p>
+                                    <p class="text-3xl font-semibold mt-1 whitespace-nowrap">Level 3</p>
+                                    <p class="text-xs text-amber-600 mt-auto pt-2">Leo · Seals</p>
+                                </div>
+                                <div class="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent-light">
+                                    <i class="fas fa-swimmer text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card p-6">
+                            <div class="flex justify-between h-full">
+                                <div class="flex flex-col h-full">
+                                    <p class="text-secondary-text text-sm min-h-[2.5rem]">Badges Earned</p>
+                                    <p class="text-3xl font-semibold mt-1 whitespace-nowrap">5</p>
+                                    <p class="text-xs text-amber-600 mt-auto pt-2">2 this month</p>
+                                </div>
+                                <div class="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent-light">
+                                    <i class="fas fa-medal text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card p-6">
+                            <div class="flex justify-between h-full">
+                                <div class="flex flex-col h-full">
+                                    <p class="text-secondary-text text-sm min-h-[2.5rem]">Next Lesson</p>
+                                    <p class="text-3xl font-semibold mt-1 whitespace-nowrap">Tomorrow</p>
+                                    <p class="text-xs text-amber-600 mt-auto pt-2">4:30 PM · Lane 2</p>
+                                </div>
+                                <div class="w-12 h-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent-light">
+                                    <i class="fas fa-clock text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Progress & Schedule Charts -->
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 mt-6">
+                        <div class="dashboard-card p-6">
+                            <h3 class="font-medium text-lg mb-4"><i class="fas fa-chart-line text-accent-light mr-2"></i>Skill Progression (Leo)</h3>
+                            <canvas id="skillChart" height="200"></canvas>
+                        </div>
+                        <div class="dashboard-card p-6">
+                            <h3 class="font-medium text-lg mb-4"><i class="fas fa-chart-pie text-accent-light mr-2"></i>Lesson Focus Breakdown</h3>
+                            <canvas id="focusChart" height="200"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Recent Badges & Notes -->
+                    <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-6">
+                        <div class="dashboard-card p-6 xl:col-span-2">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-medium text-lg"><i class="fas fa-medal text-accent-light mr-2"></i>Recent Achievements</h3>
+                                <button class="text-accent-light text-sm font-bold hover:underline">View all</button>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-4 p-3 bg-hover rounded-xl">
+                                    <div class="w-10 h-10 rounded-full bg-coral-gradient flex items-center justify-center text-white">
+                                        <i class="fas fa-fish"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold">Floating & Kicking</p>
+                                        <p class="text-xs text-secondary-text">Leo · Earned Apr 18, 2026</p>
+                                    </div>
+                                    <span class="badge-success text-xs px-3 py-1 rounded-full">New</span>
+                                </div>
+                                <div class="flex items-center gap-4 p-3 bg-hover rounded-xl">
+                                    <div class="w-10 h-10 rounded-full bg-ocean-gradient flex items-center justify-center text-white">
+                                        <i class="fas fa-wind"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold">Breathing Control</p>
+                                        <p class="text-xs text-secondary-text">Zoe · Earned Apr 12, 2026</p>
+                                    </div>
+                                    <span class="badge-info text-xs px-3 py-1 rounded-full">Mastered</span>
+                                </div>
+                                <div class="flex items-center gap-4 p-3 bg-hover rounded-xl">
+                                    <div class="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold">Water Safety Basics</p>
+                                        <p class="text-xs text-secondary-text">Leo · Earned Apr 5, 2026</p>
+                                    </div>
+                                    <span class="badge-warning text-xs px-3 py-1 rounded-full">Completed</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card p-6">
+                            <h3 class="font-medium text-lg mb-4"><i class="fas fa-clipboard-list text-accent-light mr-2"></i>Instructor Note</h3>
+                            <div class="p-4 bg-hover rounded-xl">
+                                <p class="text-sm italic">"Leo is showing great confidence in the water! Ready to move from floating to gliding. Keep practicing arm strokes at home."</p>
+                                <p class="text-xs text-secondary-text mt-3">— Coach Rivera · Apr 20</p>
+                            </div>
+                            <button class="mt-4 w-full btn-outline-ocean text-sm py-2 rounded-xl">
+                                <i class="fas fa-reply mr-1"></i> Message Coach
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ENROLL SECTION -->
+                <div id="enroll" class="admin-section hidden">
+                    <div class="dashboard-card p-6">
+                        <h2 class="text-2xl font-serif font-medium text-accent-light mb-4">
+                            <i class="fas fa-swimmer mr-2"></i> Enroll in a Swim Level
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+                            <div class="p-4 bg-hover rounded-xl border-2 border-accent-light">
+                                <span class="font-bold text-accent-light">Level 1 · Starfish</span>
+                                <p class="text-xs text-secondary-text mt-1">Water acclimation, floating</p>
+                                <div class="progress-bar mt-3"><div class="progress-fill" style="width: 90%"></div></div>
+                                <p class="text-xs mt-1">2 spots left</p>
+                                <button class="mt-2 w-full bg-accent text-white py-1.5 rounded-lg text-sm">Enroll Leo</button>
+                            </div>
+                            <div class="p-4 bg-hover rounded-xl">
+                                <span class="font-bold">Level 2 · Seahorse</span>
+                                <p class="text-xs text-secondary-text mt-1">Kicking, breathing basics</p>
+                                <div class="progress-bar mt-3"><div class="progress-fill" style="width: 60%"></div></div>
+                                <p class="text-xs mt-1">5 spots left</p>
+                                <button class="mt-2 w-full btn-outline-ocean py-1.5 rounded-lg text-sm">Enroll Zoe</button>
+                            </div>
+                            <div class="p-4 bg-hover rounded-xl">
+                                <span class="font-bold">Level 3 · Seals</span>
+                                <p class="text-xs text-secondary-text mt-1">Freestyle, backstroke intro</p>
+                                <div class="progress-bar mt-3"><div class="progress-fill" style="width: 40%"></div></div>
+                                <p class="text-xs mt-1">3 spots left</p>
+                                <button class="mt-2 w-full btn-outline-ocean py-1.5 rounded-lg text-sm">Enroll Leo</button>
+                            </div>
+                            <div class="p-4 bg-hover rounded-xl opacity-60">
+                                <span class="font-bold">Level 4 · Dolphins</span>
+                                <p class="text-xs text-secondary-text mt-1">Butterfly, endurance</p>
+                                <div class="progress-bar mt-3"><div class="progress-fill" style="width: 10%"></div></div>
+                                <p class="text-xs mt-1 text-red-400">Waitlist only</p>
+                                <button class="mt-2 w-full bg-gray-300 text-gray-600 py-1.5 rounded-lg text-sm cursor-not-allowed">Join Waitlist</button>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex flex-wrap gap-3">
+                            <button class="px-5 py-2 btn-coral rounded-xl"><i class="fas fa-calendar-plus mr-1"></i> Schedule Trial Lesson</button>
+                            <button class="px-5 py-2 btn-outline-ocean rounded-xl"><i class="fas fa-file-pdf mr-1"></i> Level Guide (PDF)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROGRESS / BADGES SECTION -->
+                <div id="progress" class="admin-section hidden">
+                    <div class="dashboard-card p-6">
+                        <h2 class="text-2xl font-serif font-medium mb-4"><i class="fas fa-trophy text-accent-light mr-2"></i> Skill Progression & Badges</h2>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <div>
+                                <h3 class="font-bold text-lg mb-3">Leo · Level 3 (Seals)</h3>
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="flex justify-between text-sm"><span>Floating & Gliding</span><span>80%</span></div>
+                                        <div class="progress-bar mt-1"><div class="progress-fill" style="width: 80%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm"><span>Freestyle Arms</span><span>65%</span></div>
+                                        <div class="progress-bar mt-1"><div class="progress-fill" style="width: 65%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm"><span>Breathing Rhythm</span><span>45%</span></div>
+                                        <div class="progress-bar mt-1"><div class="progress-fill" style="width: 45%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm"><span>Water Safety Knowledge</span><span>90%</span></div>
+                                        <div class="progress-bar mt-1"><div class="progress-fill" style="width: 90%"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg mb-3">Zoe · Level 2 (Seahorse)</h3>
+                                <div class="space-y-3">
+                                    <div>
+                                        <div class="flex justify-between text-sm"><span>Front Float</span><span>70%</span></div>
+                                        <div class="progress-bar mt-1"><div class="progress-fill" style="width: 70%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm"><span>Back Float</span><span>55%</span></div>
+                                        <div class="progress-bar mt-1"><div class="progress-fill" style="width: 55%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm"><span>Kicking Drills</span><span>85%</span></div>
+                                        <div class="progress-bar mt-1"><div class="progress-fill" style="width: 85%"></div></div>
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between text-sm"><span>Breathing Bubbles</span><span>60%</span></div>
+                                        <div class="progress-bar mt-1"><div class="progress-fill" style="width: 60%"></div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 grid grid-cols-5 gap-3">
+                            <div class="text-center p-2 bg-hover rounded-xl"><i class="fas fa-star text-accent-light text-2xl"></i><p class="text-xs mt-1">Starfish</p></div>
+                            <div class="text-center p-2 bg-hover rounded-xl"><i class="fas fa-fish text-accent-light text-2xl"></i><p class="text-xs mt-1">Seahorse</p></div>
+                            <div class="text-center p-2 bg-hover rounded-xl border-2 border-accent-light"><i class="fas fa-medal text-accent-light text-2xl"></i><p class="text-xs mt-1 font-bold">Seal</p></div>
+                            <div class="text-center p-2 bg-hover rounded-xl opacity-50"><i class="fas fa-dragon text-2xl"></i><p class="text-xs mt-1">Dolphin</p></div>
+                            <div class="text-center p-2 bg-hover rounded-xl opacity-50"><i class="fas fa-crown text-2xl"></i><p class="text-xs mt-1">Shark</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SCHEDULE SECTION -->
+                <div id="schedule" class="admin-section hidden">
+                    <div class="dashboard-card p-6">
+                        <h2 class="text-2xl font-serif font-medium mb-4"><i class="fas fa-calendar-alt text-accent-light mr-2"></i> Upcoming Lessons</h2>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm whitespace-nowrap">
+                                <thead class="border-b border-border text-secondary-text text-xs">
+                                    <tr>
+                                        <th class="pb-3 text-left px-4">Swimmer</th>
+                                        <th class="pb-3 text-left px-4">Level</th>
+                                        <th class="pb-3 text-left px-4">Date</th>
+                                        <th class="pb-3 text-left px-4">Time</th>
+                                        <th class="pb-3 text-left px-4">Lane</th>
+                                        <th class="pb-3 text-left px-4">Coach</th>
+                                        <th class="pb-3 text-left px-4">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-border">
+                                    <tr>
+                                        <td class="py-3 px-4 font-medium">Leo</td>
+                                        <td class="py-3 px-4">Level 3 · Seals</td>
+                                        <td class="py-3 px-4">Apr 28, 2026</td>
+                                        <td class="py-3 px-4">4:30 PM</td>
+                                        <td class="py-3 px-4">Lane 2</td>
+                                        <td class="py-3 px-4">Coach Rivera</td>
+                                        <td class="py-3 px-4"><span class="badge-success px-2 py-1 rounded-full text-xs">Confirmed</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-medium">Zoe</td>
+                                        <td class="py-3 px-4">Level 2 · Seahorse</td>
+                                        <td class="py-3 px-4">Apr 29, 2026</td>
+                                        <td class="py-3 px-4">3:15 PM</td>
+                                        <td class="py-3 px-4">Lane 1</td>
+                                        <td class="py-3 px-4">Coach Kim</td>
+                                        <td class="py-3 px-4"><span class="badge-success px-2 py-1 rounded-full text-xs">Confirmed</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4 font-medium">Leo</td>
+                                        <td class="py-3 px-4">Level 3 · Seals</td>
+                                        <td class="py-3 px-4">May 2, 2026</td>
+                                        <td class="py-3 px-4">4:30 PM</td>
+                                        <td class="py-3 px-4">Lane 2</td>
+                                        <td class="py-3 px-4">Coach Rivera</td>
+                                        <td class="py-3 px-4"><span class="badge-warning px-2 py-1 rounded-full text-xs">Pending</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button class="mt-5 btn-coral px-5 py-2 rounded-xl w-full sm:w-auto"><i class="fas fa-plus mr-1"></i> Request Make-up Lesson</button>
+                    </div>
+                </div>
+
+                <!-- INSTRUCTOR NOTES SECTION -->
+                <div id="notes" class="admin-section hidden">
+                    <div class="dashboard-card p-6">
+                        <h2 class="text-2xl font-serif font-medium mb-4"><i class="fas fa-comment-dots text-accent-light mr-2"></i> Instructor Notes & Feedback</h2>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-hover rounded-xl border-l-4 border-accent-light">
+                                <div class="flex justify-between">
+                                    <p class="font-bold">Coach Rivera · Leo</p>
+                                    <span class="text-xs text-secondary-text">Apr 20, 2026</span>
+                                </div>
+                                <p class="text-sm mt-2">"Leo is showing great confidence in the water! Ready to move from floating to gliding. Keep practicing arm strokes at home."</p>
+                            </div>
+                            <div class="p-4 bg-hover rounded-xl border-l-4 border-accent">
+                                <div class="flex justify-between">
+                                    <p class="font-bold">Coach Kim · Zoe</p>
+                                    <span class="text-xs text-secondary-text">Apr 18, 2026</span>
+                                </div>
+                                <p class="text-sm mt-2">"Zoe has mastered back floating. We'll focus on kicking endurance next week. She's ready for a bigger kickboard."</p>
+                            </div>
+                            <div class="p-4 bg-hover rounded-xl border-l-4 border-amber-400">
+                                <div class="flex justify-between">
+                                    <p class="font-bold">Coach Rivera · Leo</p>
+                                    <span class="text-xs text-secondary-text">Apr 10, 2026</span>
+                                </div>
+                                <p class="text-sm mt-2">"Reminder: bring goggles next session. Leo is starting underwater breathing exercises."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PAYMENTS SECTION -->
+                <div id="payments" class="admin-section hidden">
+                    <div class="dashboard-card p-6">
+                        <h2 class="text-2xl font-serif font-medium mb-4"><i class="fas fa-credit-card text-accent-light mr-2"></i> Payments & Billing</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div class="p-4 bg-hover rounded-xl">
+                                <p class="text-secondary-text text-sm min-h-[2.5rem]">Outstanding Balance</p>
+                                <p class="text-2xl font-bold text-emerald-600">$0.00</p>
+                                <p class="text-xs text-secondary-text mt-1">All paid up! 🎉</p>
+                            </div>
+                            <div class="p-4 bg-hover rounded-xl">
+                                <p class="text-secondary-text text-sm min-h-[2.5rem]">Next Payment</p>
+                                <p class="text-2xl font-bold">$120.00</p>
+                                <p class="text-xs text-secondary-text mt-1">Due May 1, 2026</p>
+                            </div>
+                            <div class="p-4 bg-hover rounded-xl">
+                                <p class="text-secondary-text text-sm min-h-[2.5rem]">Plan</p>
+                                <p class="text-2xl font-bold">Family Splash</p>
+                                <p class="text-xs text-secondary-text mt-1">2 swimmers · monthly</p>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm whitespace-nowrap">
+                                <thead class="border-b border-border text-secondary-text text-xs">
+                                    <tr>
+                                        <th class="pb-3 text-left px-4">Invoice</th>
+                                        <th class="pb-3 text-left px-4">Date</th>
+                                        <th class="pb-3 text-left px-4">Description</th>
+                                        <th class="pb-3 text-left px-4">Amount</th>
+                                        <th class="pb-3 text-left px-4">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-border">
+                                    <tr>
+                                        <td class="py-3 px-4">#INV-2041</td>
+                                        <td class="py-3 px-4">Apr 1, 2026</td>
+                                        <td class="py-3 px-4">April Lessons · Leo & Zoe</td>
+                                        <td class="py-3 px-4">$120.00</td>
+                                        <td class="py-3 px-4"><span class="badge-success px-2 py-1 rounded-full text-xs">Paid</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4">#INV-2038</td>
+                                        <td class="py-3 px-4">Mar 1, 2026</td>
+                                        <td class="py-3 px-4">March Lessons · Leo & Zoe</td>
+                                        <td class="py-3 px-4">$120.00</td>
+                                        <td class="py-3 px-4"><span class="badge-success px-2 py-1 rounded-full text-xs">Paid</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 px-4">#INV-2032</td>
+                                        <td class="py-3 px-4">Feb 1, 2026</td>
+                                        <td class="py-3 px-4">Feb Lessons + Registration</td>
+                                        <td class="py-3 px-4">$145.00</td>
+                                        <td class="py-3 px-4"><span class="badge-success px-2 py-1 rounded-full text-xs">Paid</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-5 flex gap-3">
+                            <button class="btn-coral px-5 py-2 rounded-xl"><i class="fas fa-download mr-1"></i> Download Statements</button>
+                            <button class="btn-outline-ocean px-5 py-2 rounded-xl"><i class="fas fa-credit-card mr-1"></i> Update Payment Method</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SETTINGS SECTION -->
+                <div id="settings" class="admin-section hidden">
+                    <div class="dashboard-card p-6">
+                        <h2 class="text-2xl font-serif font-medium mb-4"><i class="fas fa-user-cog text-accent-light mr-2"></i> Account Settings</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block font-bold">Parent Name</label>
+                                <input type="text" value="Maya Johnson" class="w-full p-3 bg-hover rounded-xl border-border">
+                            </div>
+                            <div>
+                                <label class="block font-bold">Email</label>
+                                <input type="email" value="maya.j@email.com" class="w-full p-3 bg-hover rounded-xl">
+                            </div>
+                            <div>
+                                <label class="block font-bold">Phone</label>
+                                <input type="tel" value="+1 (555) 234-5678" class="w-full p-3 bg-hover rounded-xl">
+                            </div>
+                            <div class="flex justify-between items-center pt-2">
+                                <span class="font-bold">Email Lesson Reminders</span>
+                                <label class="relative inline-flex cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer" checked>
+                                    <div class="w-11 h-6 bg-gray-300 dark:bg-slate-600 rounded-full peer-checked:bg-emerald-500 after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                                </label>
+                            </div>
+                            <div class="flex justify-between items-center pt-2">
+                                <span class="font-bold">SMS Alerts</span>
+                                <label class="relative inline-flex cursor-pointer">
+                                    <input type="checkbox" class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-300 dark:bg-slate-600 rounded-full peer-checked:bg-emerald-500 after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full"></div>
+                                </label>
+                            </div>
+                            <button class="btn-coral px-6 py-3 rounded-xl mt-4">Save Settings</button>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="text-center text-xs text-secondary-text border-t border-border pt-8 pb-4">
+                    <p>© 2026 AquaKids — Swim & Water Safety Academy · Every Child a Confident Swimmer</p>
+                    <div class="flex justify-center gap-6 mt-3">
+                        <a href="#" class="hover:text-accent-light transition">Privacy Policy</a>
+                        <a href="#" class="hover:text-accent-light transition">Pool Rules</a>
+                        <a href="#" class="hover:text-accent-light transition">Safety Guidelines</a>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        (function() {
+            const html = document.documentElement;
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            function applyTheme(theme) { 
+                html.setAttribute('data-theme', theme); 
+                localStorage.setItem('theme', theme); 
+                document.querySelectorAll('.light-icon').forEach(i => i.classList.toggle('hidden', theme === 'dark')); 
+                document.querySelectorAll('.dark-icon').forEach(i => i.classList.toggle('hidden', theme === 'light')); 
+            }
+            applyTheme(savedTheme);
+            document.getElementById('theme-toggle')?.addEventListener('click', () => applyTheme(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light'));
+
+            const savedLang = localStorage.getItem('language') || 'en';
+            html.setAttribute('dir', savedLang === 'ar' ? 'rtl' : 'ltr');
+            document.getElementById('lang-toggle')?.addEventListener('click', () => { 
+                const newDir = html.getAttribute('dir') === 'ltr' ? 'rtl' : 'ltr'; 
+                html.setAttribute('dir', newDir); 
+                localStorage.setItem('language', newDir === 'rtl' ? 'ar' : 'en'); 
+            });
+
+            const menuToggle = document.getElementById('mobile-menu-toggle'), 
+                  closeSide = document.getElementById('close-sidebar'), 
+                  sidebar = document.getElementById('sidebar'), 
+                  overlay = document.getElementById('mobile-overlay');
+            function toggleMenu(open) { 
+                sidebar.classList.toggle('-translate-x-full', !open); 
+                overlay.classList.toggle('active', open); 
+                document.body.style.overflow = open ? 'hidden' : ''; 
+            }
+            menuToggle?.addEventListener('click', () => toggleMenu(true)); 
+            closeSide?.addEventListener('click', () => toggleMenu(false)); 
+            overlay?.addEventListener('click', () => toggleMenu(false));
+
+            const sections = ['overview','enroll','progress','schedule','notes','payments','settings'];
+            const links = document.querySelectorAll('.sidebar-link');
+            window.activateSection = function(id) { 
+                sections.forEach(s => document.getElementById(s)?.classList.add('hidden')); 
+                document.getElementById(id)?.classList.remove('hidden'); 
+                links.forEach(l => { l.classList.remove('active'); if(l.dataset.section === id) l.classList.add('active'); }); 
+                if(window.innerWidth<1024) toggleMenu(false); 
+            };
+            links.forEach(link => { 
+                if(link.dataset.section) link.addEventListener('click', (e) => { 
+                    e.preventDefault(); 
+                    activateSection(link.dataset.section); 
+                }); 
+            });
+            document.getElementById("logoutBtn")?.addEventListener("click", (e) => { 
+                e.preventDefault(); 
+                localStorage.clear(); 
+                sessionStorage.clear(); 
+                window.location.href = "login.html"; 
+            });
+
+            // Charts
+            setTimeout(() => {
+                const skillCtx = document.getElementById('skillChart')?.getContext('2d');
+                if(skillCtx) new Chart(skillCtx, { 
+                    type: 'line', 
+                    data: { 
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'], 
+                        datasets: [
+                            { label: 'Leo (Float)', data: [20, 40, 55, 70, 80], borderColor: '#0A4B6E', backgroundColor: 'rgba(10,75,110,0.1)', tension: 0.3, fill: true },
+                            { label: 'Leo (Strokes)', data: [10, 20, 35, 50, 65], borderColor: '#FFB347', backgroundColor: 'rgba(255,179,71,0.1)', tension: 0.3, fill: true },
+                            { label: 'Zoe (Float)', data: [25, 45, 60, 70, 75], borderColor: '#1C7A9E', backgroundColor: 'rgba(28,122,158,0.1)', tension: 0.3, fill: true }
+                        ] 
+                    }, 
+                    options: { responsive: true, plugins: { legend: { position: 'bottom' } } } 
+                });
+
+                const focusCtx = document.getElementById('focusChart')?.getContext('2d');
+                if(focusCtx) new Chart(focusCtx, { 
+                    type: 'doughnut', 
+                    data: { 
+                        labels: ['Freestyle', 'Breathing', 'Safety Skills', 'Floating'], 
+                        datasets: [{ data: [35, 25, 20, 20], backgroundColor: ['#0A4B6E', '#1C7A9E', '#FFB347', '#0F8B6F'] }] 
+                    }, 
+                    options: { plugins: { legend: { position: 'bottom' } } } 
+                });
+            }, 100);
+        })();
+    </script>
+</body>
+</html>
