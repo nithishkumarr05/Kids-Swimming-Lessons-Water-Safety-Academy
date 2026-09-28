@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <g fill="none" stroke="#0ea5e9" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Sun -->
+    <path d="M30 35 A10 10 0 0 1 50 35" />
+    <line x1="40" y1="15" x2="40" y2="22" />
+    <line x1="22" y1="22" x2="27" y2="27" />
+    <line x1="58" y1="22" x2="53" y2="27" />
+    <line x1="15" y1="35" x2="22" y2="35" />
+    <line x1="65" y1="35" x2="58" y2="35" />
+    
+    <!-- Head -->
+    <circle cx="70" cy="52" r="8" />
+    
+    <!-- Body/Arm -->
+    <path d="M35 65 L55 52 L65 65" />
+    <path d="M35 42 L52 42 L65 60" />
+
+    <!-- Waves -->
+    <path d="M15 75 Q25 65 35 75 T55 75 T75 75 T95 75" />
+    <path d="M10 85 Q20 75 30 85 T50 85 T70 85 T90 85" />
+    <path d="M15 95 Q25 85 35 95 T55 95 T75 95 T95 95" />
+  </g>
+</svg>
