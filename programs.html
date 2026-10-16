@@ -11,26 +11,26 @@
     <style>
         :root, html[data-theme='light'] {
             --color-background: #FFFFFF;
-            --color-primary-text: #0C4A6E;
-            --color-secondary-text: #475569;
-            --color-accent: #0EA5E9;
+            --color-primary-text: #0F172A;
+            --color-secondary-text: #334155;
+            --color-accent: #0284C7;
             --color-accent-light: #38BDF8;
-            --color-accent-dark: #0284C7;
-            --color-border: #E0F2FE;
+            --color-accent-dark: #0369A1;
+            --color-border: #E2E8F0;
             --color-hover: #F0F9FF;
             --color-footer-bg: #082F49;
             --color-footer-text: #FFFFFF;
         }
         html[data-theme='dark'] {
             --color-background: #082F49;
-            --color-primary-text: #F0F9FF;
-            --color-secondary-text: #7DD3FC;
+            --color-primary-text: #F8FAFC;
+            --color-secondary-text: #E0F2FE;
             --color-accent: #38BDF8;
             --color-accent-light: #7DD3FC;
             --color-accent-dark: #0EA5E9;
-            --color-border: #0C4A6E;
+            --color-border: #1E3A5F;
             --color-hover: #0C4A6E;
-            --color-footer-bg: #082F49;
+            --color-footer-bg: #031D30;
             --color-footer-text: #FFFFFF;
         }
 
@@ -170,6 +170,21 @@
             border-radius: 50%;
             background: rgba(14, 165, 233, 0.06);
             pointer-events: none;
+            z-index: 2;
+        }
+
+        /* High-contrast Atmospheric Hero Overlay for crystal-clear readability */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+        html[data-theme='dark'] .hero-overlay {
+            background: rgba(8, 47, 73, 0.94);
         }
 
         /* ====== PROGRAMS PAGE SPECIFIC STYLES ====== */
@@ -549,12 +564,15 @@
     <main class="flex-grow">
 
         <!-- ======== SECTION 1: HERO ======== -->
-        <section class="relative overflow-hidden py-12 lg:py-20 bg-gradient-to-br from-brand-aqua via-brand-bg to-brand-aqua dark:from-brand-dark dark:via-brand-dark-card dark:to-brand-dark">
+        <section class="relative overflow-hidden py-12 lg:py-20 bg-cover bg-center" style="background-image: url('assests/swim_safety_class.jpg');">
+            <!-- Atmospheric Overlay for Readability in Light & Dark Themes -->
+            <div class="hero-overlay"></div>
+            
             <div class="water-shape w-96 h-96 -top-20 -right-20"></div>
             <div class="water-shape w-80 h-80 bottom-10 -left-20"></div>
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="max-w-4xl mx-auto text-center">
-                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-border text-sm font-semibold text-accent shadow-sm mb-5">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background border border-border text-sm font-semibold text-accent shadow-sm mb-5">
                         <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span> Enrollments Open for Spring 2026
                     </div>
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary-text leading-tight">
@@ -568,10 +586,94 @@
                         <a href="contact.html" class="btn-outline px-8 py-3.5 rounded-full font-bold text-base">Book a Trial</a>
                     </div>
                     <div class="mt-8 flex flex-wrap justify-center gap-8 text-sm">
-                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-accent"></i> <span class="text-secondary-text">Ages 6 months – 14 years</span></div>
-                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-accent"></i> <span class="text-secondary-text">Max 4 kids per class</span></div>
-                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-accent"></i> <span class="text-secondary-text">Flexible schedules</span></div>
+                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-accent"></i> <span class="text-secondary-text font-medium">Ages 6 months – 14 years</span></div>
+                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-accent"></i> <span class="text-secondary-text font-medium">Max 4 kids per class</span></div>
+                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-accent"></i> <span class="text-secondary-text font-medium">90°F Heated Water</span></div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== PARENT QUICK-LOOK MATRIX ======== -->
+        <section class="py-12 bg-hover border-b border-border">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+                <div class="text-center mb-10">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-background border border-border text-accent uppercase tracking-wider mb-2">At-A-Glance Comparison</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-primary-text">Program Selection Matrix for Parents</h2>
+                    <p class="text-secondary-text text-sm mt-2">Find the exact right fit for your child's age, comfort level, and swimming goals.</p>
+                </div>
+
+                <div class="overflow-x-auto rounded-2xl border border-border bg-background shadow-sm">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-hover/80 text-primary-text border-b border-border text-xs uppercase tracking-wider">
+                                <th class="p-4 font-bold">Program</th>
+                                <th class="p-4 font-bold">Age Group</th>
+                                <th class="p-4 font-bold">Class Ratio</th>
+                                <th class="p-4 font-bold">Duration</th>
+                                <th class="p-4 font-bold">Core Learning Focus</th>
+                                <th class="p-4 font-bold">Water Temp</th>
+                                <th class="p-4 font-bold text-center">Enroll / Trial</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-border text-secondary-text font-medium">
+                            <tr class="hover:bg-hover/40 transition-colors">
+                                <td class="p-4 font-bold text-primary-text flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span> Water Babies
+                                </td>
+                                <td class="p-4 font-semibold text-accent">6–18 Months</td>
+                                <td class="p-4">Parent + Coach</td>
+                                <td class="p-4">30 min</td>
+                                <td class="p-4">Gentle water acclimation, back floating, trust games</td>
+                                <td class="p-4"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 font-bold text-xs">90°F Warm</span></td>
+                                <td class="p-4 text-center"><a href="contact.html" class="btn-outline px-4 py-1.5 rounded-full text-xs font-bold inline-block">Free Trial</a></td>
+                            </tr>
+                            <tr class="hover:bg-hover/40 transition-colors">
+                                <td class="p-4 font-bold text-primary-text flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span> Toddler Splash
+                                </td>
+                                <td class="p-4 font-semibold text-accent">18–36 Months</td>
+                                <td class="p-4">4:1 Max (Parent in water)</td>
+                                <td class="p-4">40 min</td>
+                                <td class="p-4">Bubble blowing, independent kicking, pool wall climbing</td>
+                                <td class="p-4"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 font-bold text-xs">90°F Warm</span></td>
+                                <td class="p-4 text-center"><a href="contact.html" class="btn-outline px-4 py-1.5 rounded-full text-xs font-bold inline-block">Free Trial</a></td>
+                            </tr>
+                            <tr class="hover:bg-hover/40 transition-colors">
+                                <td class="p-4 font-bold text-primary-text flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span> Little Flippers
+                                </td>
+                                <td class="p-4 font-semibold text-accent">Ages 4–5</td>
+                                <td class="p-4">4:1 Max (Kids only)</td>
+                                <td class="p-4">45 min</td>
+                                <td class="p-4">Kickboard propulsion, unassisted float, jump &amp; recovery</td>
+                                <td class="p-4"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 font-bold text-xs">90°F Warm</span></td>
+                                <td class="p-4 text-center"><a href="contact.html" class="btn-outline px-4 py-1.5 rounded-full text-xs font-bold inline-block">Free Trial</a></td>
+                            </tr>
+                            <tr class="hover:bg-hover/40 transition-colors">
+                                <td class="p-4 font-bold text-primary-text flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span> Dolphin Squad
+                                </td>
+                                <td class="p-4 font-semibold text-accent">Ages 6–8</td>
+                                <td class="p-4">4:1 Max (Kids only)</td>
+                                <td class="p-4">50 min</td>
+                                <td class="p-4">Freestyle side breathing, backstroke, treading water</td>
+                                <td class="p-4"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 font-bold text-xs">90°F Warm</span></td>
+                                <td class="p-4 text-center"><a href="contact.html" class="btn-outline px-4 py-1.5 rounded-full text-xs font-bold inline-block">Free Trial</a></td>
+                            </tr>
+                            <tr class="hover:bg-hover/40 transition-colors">
+                                <td class="p-4 font-bold text-primary-text flex items-center gap-2">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-indigo-600"></span> Junior Lifeguard
+                                </td>
+                                <td class="p-4 font-semibold text-accent">Ages 9–14</td>
+                                <td class="p-4">6:1 Max</td>
+                                <td class="p-4">60 min</td>
+                                <td class="p-4">All 4 competitive strokes, lap endurance, reach-or-throw rescue</td>
+                                <td class="p-4"><span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 font-bold text-xs">90°F Warm</span></td>
+                                <td class="p-4 text-center"><a href="contact.html" class="btn-outline px-4 py-1.5 rounded-full text-xs font-bold inline-block">Free Trial</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
@@ -591,7 +693,7 @@
                 <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                     <div class="program-card">
                         <div class="program-image-wrapper">
-                            <div class="program-image" style="background-image: url('assests/p.jpg');"></div>
+                            <div class="program-image" style="background-image: url('assests/parent_child_swim.jpg');"></div>
                             <span class="age-badge">6–18 Months</span>
                             <span class="level-badge">Parent &amp; Me</span>
                             <div class="program-title-overlay">
@@ -676,7 +778,7 @@
 
                     <div class="program-card">
                         <div class="program-image-wrapper">
-                            <div class="program-image" style="background-image: url('https://images.unsplash.com/photo-1530549387789-4c1017266635?q=80&w=2070&auto=format&fit=crop');"></div>
+                            <div class="program-image" style="background-image: url('assests/child_goggles_smile.jpg');"></div>
                             <span class="age-badge">Ages 6–8</span>
                             <span class="level-badge">Group Class</span>
                             <div class="program-title-overlay">

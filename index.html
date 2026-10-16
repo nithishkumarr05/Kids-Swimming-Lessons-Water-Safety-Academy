@@ -11,26 +11,26 @@
     <style>
         :root, html[data-theme='light'] {
             --color-background: #FFFFFF;
-            --color-primary-text: #0C4A6E;
-            --color-secondary-text: #475569;
-            --color-accent: #0EA5E9;
+            --color-primary-text: #0F172A;
+            --color-secondary-text: #334155;
+            --color-accent: #0284C7;
             --color-accent-light: #38BDF8;
-            --color-accent-dark: #0284C7;
-            --color-border: #E0F2FE;
+            --color-accent-dark: #0369A1;
+            --color-border: #E2E8F0;
             --color-hover: #F0F9FF;
             --color-footer-bg: #082F49;
             --color-footer-text: #FFFFFF;
         }
         html[data-theme='dark'] {
             --color-background: #082F49;
-            --color-primary-text: #F0F9FF;
-            --color-secondary-text: #7DD3FC;
+            --color-primary-text: #F8FAFC;
+            --color-secondary-text: #E0F2FE;
             --color-accent: #38BDF8;
             --color-accent-light: #7DD3FC;
             --color-accent-dark: #0EA5E9;
-            --color-border: #0C4A6E;
+            --color-border: #1E3A5F;
             --color-hover: #0C4A6E;
-            --color-footer-bg: #082F49;
+            --color-footer-bg: #031D30;
             --color-footer-text: #FFFFFF;
         }
 
@@ -228,6 +228,21 @@
             border-radius: 50%;
             background: rgba(14, 165, 233, 0.06);
             pointer-events: none;
+            z-index: 2;
+        }
+
+        /* High-contrast Atmospheric Hero Overlay for crystal-clear readability */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+        html[data-theme='dark'] .hero-overlay {
+            background: rgba(8, 47, 73, 0.94);
         }
 
         /* ====== NEW WATER SAFETY CURRICULUM STYLES ====== */
@@ -271,14 +286,17 @@
         .curriculum-card .level-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
-            font-size: 0.7rem;
+            align-self: flex-start;
+            width: fit-content;
+            max-width: fit-content;
+            gap: 0.3rem;
+            font-size: 0.65rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            padding: 0.3rem 1rem;
-            border-radius: 100px;
-            background: rgba(14, 165, 233, 0.1);
+            padding: 0.2rem 0.65rem;
+            border-radius: 9999px;
+            background: rgba(14, 165, 233, 0.12);
             color: var(--color-accent);
         }
         .curriculum-card .level-icon {
@@ -441,7 +459,10 @@
     <main class="flex-grow">
 
         <!-- ======== SECTION 1: HERO ======== -->
-        <section class="relative overflow-hidden bg-hover py-10 lg:py-16">
+        <section class="relative overflow-hidden py-12 lg:py-20 bg-cover bg-center" style="background-image: url('assests/indoor_pool_warm.jpg');">
+            <!-- Atmospheric Overlay for High Readability in Light & Dark Themes -->
+            <div class="hero-overlay"></div>
+            
             <div class="water-shape w-96 h-96 -top-20 -right-20"></div>
             <div class="water-shape w-80 h-80 bottom-10 -left-20"></div>
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -468,7 +489,18 @@
                     </div>
                     <div class="lg:w-1/2 w-full relative">
                         <div class="absolute inset-0 bg-accent opacity-10 blur-3xl rounded-full transform scale-90 translate-x-10 translate-y-10"></div>
-                        <div class="img-placeholder w-full h-[300px] md:h-[400px] lg:h-[450px] rounded-3xl shadow-2xl border border-border" style="background-image: url('assests/hom.jpg');"></div>
+                        <div class="img-placeholder w-full h-[320px] md:h-[420px] lg:h-[480px] rounded-3xl shadow-2xl border border-border overflow-hidden relative" style="background-image: url('assests/hero_kids_swim.jpg');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                            <!-- Floating Trust Badges -->
+                            <div class="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 justify-between items-center text-white text-xs">
+                                <span class="bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 font-semibold flex items-center gap-1.5">
+                                    <i class="fa-solid fa-water text-accent-light"></i> 90°F Heated Pool
+                                </span>
+                                <span class="bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 font-semibold flex items-center gap-1.5">
+                                    <i class="fa-solid fa-users text-accent-light"></i> 4:1 Student-Coach Ratio
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -478,24 +510,51 @@
         <section class="py-16 bg-background">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-accent/10 text-accent uppercase tracking-wider mb-3">The SwimKids Difference</span>
                     <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Why Choose SwimKids</h2>
-                    <p class="text-secondary-text text-lg mt-3">Building confidence and water safety skills for life.</p>
+                    <p class="text-secondary-text text-lg mt-3">Combining professional instruction with a nurturing, child-centered environment.</p>
                 </div>
-                <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                    <div class="feature-card">
-                        <div class="icon-circle"><i class="fa-solid fa-user-shield"></i></div>
-                        <h3 class="text-xl font-bold text-primary-text mt-4 min-h-[3.5rem]">Water Safety First</h3>
-                        <p class="text-secondary-text mt-2 flex-grow">Every lesson includes essential water safety skills, from floating to emergency awareness, taught by certified lifeguards.</p>
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Feature 1 -->
+                    <div class="feature-card p-0 overflow-hidden border border-border rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="h-48 w-full bg-cover bg-center relative" style="background-image: url('assests/swim_safety_class.jpg');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <span class="absolute bottom-3 left-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
+                                <i class="fa-solid fa-shield-halved"></i> Safety Curriculum
+                            </span>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-primary-text mb-2">Water Safety First</h3>
+                            <p class="text-secondary-text text-sm flex-grow">Every lesson includes vital water safety skills—from independent floating and wall recovery to safe pool entry and breath control.</p>
+                        </div>
                     </div>
-                    <div class="feature-card">
-                        <div class="icon-circle"><i class="fa-solid fa-users"></i></div>
-                        <h3 class="text-xl font-bold text-primary-text mt-4 min-h-[3.5rem]">Small Class Sizes</h3>
-                        <p class="text-secondary-text mt-2 flex-grow">Maximum 4 children per instructor ensures personalized attention and faster skill development for every swimmer.</p>
+
+                    <!-- Feature 2 -->
+                    <div class="feature-card p-0 overflow-hidden border border-border rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="h-48 w-full bg-cover bg-center relative" style="background-image: url('assests/coach_child_lesson.jpg');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <span class="absolute bottom-3 left-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
+                                <i class="fa-solid fa-users"></i> 4:1 Max Ratio
+                            </span>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-primary-text mb-2">Small Class Sizes</h3>
+                            <p class="text-secondary-text text-sm flex-grow">A maximum of 4 children per instructor guarantees continuous individual feedback, gentle encouragement, and rapid confidence building.</p>
+                        </div>
                     </div>
-                    <div class="feature-card">
-                        <div class="icon-circle"><i class="fa-solid fa-temperature-half"></i></div>
-                        <h3 class="text-xl font-bold text-primary-text mt-4 min-h-[3.5rem]">Heated Indoor Pool</h3>
-                        <p class="text-secondary-text mt-2 flex-grow">Our state-of-the-art facility features a 90°F heated indoor pool, perfect for year-round swimming comfort.</p>
+
+                    <!-- Feature 3 -->
+                    <div class="feature-card p-0 overflow-hidden border border-border rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="h-48 w-full bg-cover bg-center relative" style="background-image: url('assests/indoor_pool_warm.jpg');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <span class="absolute bottom-3 left-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1.5">
+                                <i class="fa-solid fa-temperature-half"></i> 90°F Heated
+                            </span>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-primary-text mb-2">Warm Indoor Pool</h3>
+                            <p class="text-secondary-text text-sm flex-grow">Our custom indoor pool is kept at a comfortable 90°F with ozone purification, keeping children warm and happy in all seasons.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -510,30 +569,33 @@
                 </div>
                 <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                     <div class="program-card">
-                        <div class="img-placeholder h-48" style="background-image: url('assests/hom1.jpg');"></div>
+                        <div class="img-placeholder h-52 relative overflow-hidden" style="background-image: url('assests/parent_child_swim.jpg');">
+                            <span class="absolute top-3 left-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">Ages 6mo–3yrs</span>
+                        </div>
                         <div class="p-6 flex flex-col flex-grow">
-                            <span class="inline-block text-xs font-bold px-3 py-1 rounded-full bg-accent/10 text-accent mb-2">Ages 3–5</span>
-                            <h3 class="text-xl font-bold text-primary-text min-h-[3.5rem]">Tadpole Beginners</h3>
-                            <p class="text-secondary-text text-sm mt-2">Introduction to water, basic floating, kicking, and water safety fundamentals in a playful environment.</p>
-                            <a href="programs.html" class="inline-block mt-auto pt-4 text-accent font-semibold hover:underline">Learn More →</a>
+                            <h3 class="text-xl font-bold text-primary-text min-h-[3rem]">Tadpole &amp; Parent</h3>
+                            <p class="text-secondary-text text-sm mt-2">Gentle water introduction, floating trust, bubble games, and parent-guided water comfort in our warm 90°F pool.</p>
+                            <a href="programs.html" class="inline-block mt-auto pt-4 text-accent font-semibold hover:underline">Explore Curriculum →</a>
                         </div>
                     </div>
                     <div class="program-card">
-                        <div class="img-placeholder h-48" style="background-image: url('assests/hom2.jpg');"></div>
+                        <div class="img-placeholder h-52 relative overflow-hidden" style="background-image: url('assests/girl_kickboard.jpg');">
+                            <span class="absolute top-3 left-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">Ages 4–7</span>
+                        </div>
                         <div class="p-6 flex flex-col flex-grow">
-                            <span class="inline-block text-xs font-bold px-3 py-1 rounded-full bg-accent/10 text-accent mb-2">Ages 6–9</span>
-                            <h3 class="text-xl font-bold text-primary-text min-h-[3.5rem]">Dolphin Intermediate</h3>
-                            <p class="text-secondary-text text-sm mt-2">Stroke refinement, freestyle, backstroke, and breath control for confident young swimmers.</p>
-                            <a href="programs.html" class="inline-block mt-auto pt-4 text-accent font-semibold hover:underline">Learn More →</a>
+                            <h3 class="text-xl font-bold text-primary-text min-h-[3rem]">Little Flippers</h3>
+                            <p class="text-secondary-text text-sm mt-2">Independent kickboard drills, flutter kicks, breath control, and basic freestyle mechanics in small 4:1 groups.</p>
+                            <a href="programs.html" class="inline-block mt-auto pt-4 text-accent font-semibold hover:underline">Explore Curriculum →</a>
                         </div>
                     </div>
                     <div class="program-card">
-                        <div class="img-placeholder h-48" style="background-image: url('assests/hom3.jpg');"></div>
+                        <div class="img-placeholder h-52 relative overflow-hidden" style="background-image: url('assests/child_goggles_smile.jpg');">
+                            <span class="absolute top-3 left-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">Ages 8–14</span>
+                        </div>
                         <div class="p-6 flex flex-col flex-grow">
-                            <span class="inline-block text-xs font-bold px-3 py-1 rounded-full bg-accent/10 text-accent mb-2">Ages 10–14</span>
-                            <h3 class="text-xl font-bold text-primary-text min-h-[3.5rem]">Shark Advanced</h3>
-                            <p class="text-secondary-text text-sm mt-2">Competitive stroke techniques, butterfly, diving, and endurance training for young athletes.</p>
-                            <a href="programs.html" class="inline-block mt-auto pt-4 text-accent font-semibold hover:underline">Learn More →</a>
+                            <h3 class="text-xl font-bold text-primary-text min-h-[3rem]">Stroke &amp; Junior Safety</h3>
+                            <p class="text-secondary-text text-sm mt-2">Refining freestyle, backstroke, endurance laps, treading water, and essential reach-or-throw safety awareness.</p>
+                            <a href="programs.html" class="inline-block mt-auto pt-4 text-accent font-semibold hover:underline">Explore Curriculum →</a>
                         </div>
                     </div>
                 </div>
@@ -551,7 +613,7 @@
                 <div class="text-center max-w-3xl mx-auto mb-14">
                     <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-accent/10 text-accent uppercase tracking-wider mb-3">Safety Curriculum</span>
                     <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">The Water Safety <span class="text-accent">Journey</span></h2>
-                    <p class="text-secondary-text text-lg mt-3">Four progressive levels that take your child from water introduction to becoming a confident, safety-conscious swimmer.</p>
+                    <p class="text-secondary-text text-lg mt-3">Four progressive stages that take children from their very first splash to becoming confident, safety-conscious swimmers.</p>
                 </div>
 
                 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
@@ -560,18 +622,18 @@
                         <div class="level-icon level-1">
                             <i class="fas fa-water"></i>
                         </div>
-                        <span class="level-badge"><i class="fas fa-star text-[8px]"></i> Level 1</span>
+                        <span class="level-badge"><i class="fas fa-star text-[7px]"></i> Level 1</span>
                         <h3 class="text-lg font-bold text-primary-text mt-3">Water Discovery</h3>
-                        <p class="text-secondary-text text-sm mt-2">Gentle introduction to the aquatic environment. Focus on comfort, floating, and basic breath control.</p>
+                        <p class="text-secondary-text text-sm mt-2">Gentle introduction to the aquatic environment and basic water comfort.</p>
                         <ul class="skill-list">
-                            <li><i class="fas fa-check"></i> Enter &amp; exit water safely</li>
-                            <li><i class="fas fa-check"></i> Front &amp; back floating</li>
-                            <li><i class="fas fa-check"></i> Bubble blowing</li>
-                            <li><i class="fas fa-check"></i> Pool rules awareness</li>
+                            <li><i class="fas fa-check"></i> Safe pool entry &amp; exit</li>
+                            <li><i class="fas fa-check"></i> Relaxed back floating</li>
+                            <li><i class="fas fa-check"></i> Bubble blowing &amp; breath</li>
+                            <li><i class="fas fa-check"></i> Pool safety guidelines</li>
                         </ul>
                         <div class="progress-ring">
                             <div class="ring" data-progress="25%" style="--progress: 90deg;"></div>
-                            <span class="ring-label">Foundation Skills</span>
+                            <span class="ring-label">Foundation Stage</span>
                         </div>
                     </div>
 
@@ -580,7 +642,7 @@
                         <div class="level-icon level-2">
                             <i class="fas fa-person-swimming"></i>
                         </div>
-                        <span class="level-badge"><i class="fas fa-star text-[8px]"></i> Level 2</span>
+                        <span class="level-badge"><i class="fas fa-star text-[7px]"></i> Level 2</span>
                         <h3 class="text-lg font-bold text-primary-text mt-3">Stroke Basics</h3>
                         <p class="text-secondary-text text-sm mt-2">Building on fundamentals with kicking, arm movements, and underwater confidence.</p>
                         <ul class="skill-list">
@@ -591,7 +653,7 @@
                         </ul>
                         <div class="progress-ring">
                             <div class="ring" data-progress="50%" style="--progress: 180deg;"></div>
-                            <span class="ring-label">Core Techniques</span>
+                            <span class="ring-label">Propulsion Skills</span>
                         </div>
                     </div>
 
@@ -600,7 +662,7 @@
                         <div class="level-icon level-3">
                             <i class="fas fa-medal"></i>
                         </div>
-                        <span class="level-badge"><i class="fas fa-star text-[8px]"></i> Level 3</span>
+                        <span class="level-badge"><i class="fas fa-star text-[7px]"></i> Level 3</span>
                         <h3 class="text-lg font-bold text-primary-text mt-3">Stroke Mastery</h3>
                         <p class="text-secondary-text text-sm mt-2">Refining all four competitive strokes and building endurance with continuous swimming.</p>
                         <ul class="skill-list">
@@ -611,7 +673,7 @@
                         </ul>
                         <div class="progress-ring">
                             <div class="ring" data-progress="75%" style="--progress: 270deg;"></div>
-                            <span class="ring-label">Advanced Strokes</span>
+                            <span class="ring-label">Form &amp; Stamina</span>
                         </div>
                     </div>
 
@@ -620,59 +682,288 @@
                         <div class="level-icon level-4">
                             <i class="fas fa-shield-halved"></i>
                         </div>
-                        <span class="level-badge"><i class="fas fa-star text-[8px]"></i> Level 4</span>
+                        <span class="level-badge"><i class="fas fa-star text-[7px]"></i> Level 4</span>
                         <h3 class="text-lg font-bold text-primary-text mt-3">Safety &amp; Rescue</h3>
                         <p class="text-secondary-text text-sm mt-2">Advanced water safety, rescue techniques, and preparing for competitive swimming.</p>
                         <ul class="skill-list">
                             <li><i class="fas fa-check"></i> Reach &amp; throw rescue</li>
                             <li><i class="fas fa-check"></i> CPR awareness for kids</li>
                             <li><i class="fas fa-check"></i> Open water safety</li>
-                            <li><i class="fas fa-check"></i> Competitive starts &amp; turns</li>
+                            <li><i class="fas fa-check"></i> Junior water safety badge</li>
                         </ul>
                         <div class="progress-ring">
                             <div class="ring" data-progress="100%" style="--progress: 360deg;"></div>
-                            <span class="ring-label">Lifeguard Ready</span>
+                            <span class="ring-label">Safety Certified</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="text-center mt-12">
-                    <a href="instructors.html" class="btn-primary px-8 py-3.5 rounded-full font-semibold inline-flex items-center gap-2 shadow-lg shadow-accent/20">
-                        <i class="fas fa-chalkboard-teacher"></i> Meet Our Certified Instructors
+                    <a href="programs.html" class="btn-primary px-8 py-3.5 rounded-full font-semibold inline-flex items-center gap-2 shadow-lg shadow-accent/20">
+                        <i class="fas fa-list-check"></i> View Full Curriculum &amp; Pricing
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- ======== SECTION 5: FACILITIES & ACHIEVEMENTS ======== -->
+        <!-- ======== SECTION 5: HOW LESSONS WORK FOR PARENTS (4-Step Roadmap) ======== -->
         <section class="py-16 bg-hover border-y border-border">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
-                    <div>
-                        <div class="img-placeholder h-64 md:h-80 rounded-3xl shadow-xl" style="background-image: url('https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=2070&auto=format&fit=crop');"></div>
+                <div class="text-center max-w-3xl mx-auto mb-14">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-background border border-border text-accent uppercase tracking-wider mb-3">Parent Peace of Mind</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">How Lessons Work at <span class="text-accent">SwimKids</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">From your child's very first splash to graduation day, we make the swimming journey gentle, transparent, and rewarding.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                    <!-- Step 1 -->
+                    <div class="bg-background rounded-2xl p-6 border border-border shadow-sm flex flex-col items-center text-center relative hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-full bg-accent text-white font-extrabold flex items-center justify-center text-lg mb-4 shadow-md shadow-accent/25">1</div>
+                        <h3 class="text-lg font-bold text-primary-text mb-2">Free 20-Min Evaluation</h3>
+                        <p class="text-secondary-text text-sm">Meet our coaches, tour the warm 90°F pool, and let our head instructor gently evaluate your child's water comfort.</p>
                     </div>
-                    <div>
-                        <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">World-Class Facilities</h2>
-                        <p class="text-secondary-text text-lg mt-3">Our academy features a state-of-the-art swimming facility designed with your child's safety and comfort in mind.</p>
-                        <ul class="mt-6 space-y-4">
-                            <li class="flex items-start gap-4">
-                                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fas fa-temperature-half text-accent"></i></div>
-                                <div><h4 class="font-bold text-primary-text">90°F Heated Indoor Pool</h4><p class="text-secondary-text text-sm">Comfortable year-round swimming in our temperature-controlled pool.</p></div>
-                            </li>
-                            <li class="flex items-start gap-4">
-                                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fas fa-water text-accent"></i></div>
-                                <div><h4 class="font-bold text-primary-text">UV &amp; Ozone Purification</h4><p class="text-secondary-text text-sm">Advanced water treatment for crystal-clear, chemical-balanced water.</p></div>
-                            </li>
-                            <li class="flex items-start gap-4">
-                                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fas fa-eye text-accent"></i></div>
-                                <div><h4 class="font-bold text-primary-text">Parent Viewing Area</h4><p class="text-secondary-text text-sm">Watch your child's progress from our comfortable observation lounge.</p></div>
-                            </li>
-                            <li class="flex items-start gap-4">
-                                <div class="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0"><i class="fas fa-trophy text-accent"></i></div>
-                                <div><h4 class="font-bold text-primary-text">Award-Winning Program</h4><p class="text-secondary-text text-sm">Recognized as "Best Kids Swim Program" three years running.</p></div>
-                            </li>
-                        </ul>
+
+                    <!-- Step 2 -->
+                    <div class="bg-background rounded-2xl p-6 border border-border shadow-sm flex flex-col items-center text-center relative hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-full bg-accent text-white font-extrabold flex items-center justify-center text-lg mb-4 shadow-md shadow-accent/25">2</div>
+                        <h3 class="text-lg font-bold text-primary-text mb-2">Small 4:1 Class Placement</h3>
+                        <p class="text-secondary-text text-sm">We pair your child with peers of identical age and swimming ability, ensuring personalized attention with zero waiting.</p>
                     </div>
+
+                    <!-- Step 3 -->
+                    <div class="bg-background rounded-2xl p-6 border border-border shadow-sm flex flex-col items-center text-center relative hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-full bg-accent text-white font-extrabold flex items-center justify-center text-lg mb-4 shadow-md shadow-accent/25">3</div>
+                        <h3 class="text-lg font-bold text-primary-text mb-2">Warm, Gentle Coaching</h3>
+                        <p class="text-secondary-text text-sm">Watch through our panoramic parent lounge as certified coaches build breath control, kicking, and floating through fun games.</p>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="bg-background rounded-2xl p-6 border border-border shadow-sm flex flex-col items-center text-center relative hover:shadow-md transition-shadow">
+                        <div class="w-12 h-12 rounded-full bg-accent text-white font-extrabold flex items-center justify-center text-lg mb-4 shadow-md shadow-accent/25">4</div>
+                        <h3 class="text-lg font-bold text-primary-text mb-2">Ribbons &amp; Milestones</h3>
+                        <p class="text-secondary-text text-sm">Celebrate real milestones! Kids earn colorful waterproof skill ribbons, level certificates, and water safety badges.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== SECTION 6: INSTRUCTOR SPOTLIGHT (Real Coach Visuals) ======== -->
+        <section class="py-20 bg-background">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-14">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-accent/10 text-accent uppercase tracking-wider mb-3">Certified &amp; Caring Mentors</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Meet Our Kids <span class="text-accent">Swim Coaches</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">Every coach is American Red Cross certified in Water Safety, CPR/AED, and Pediatric First Aid with extensive youth coaching experience.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+                    <!-- Coach 1 -->
+                    <div class="bg-background border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="h-60 w-full overflow-hidden relative">
+                            <img src="assests/team1.jpg" alt="David Reynolds" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                            <span class="absolute top-3 left-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">Program Director</span>
+                        </div>
+                        <div class="p-5 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-primary-text">David Reynolds</h3>
+                            <p class="text-accent text-xs font-semibold mt-0.5">Master Swim Coach &bull; 15+ Yrs</p>
+                            <p class="text-secondary-text text-xs mt-3 leading-relaxed flex-grow">Former national swimmer with a degree in Sports Science. David designs child-friendly drills that turn fear into confidence.</p>
+                            <div class="pt-3 border-t border-border mt-4 flex items-center justify-between text-xs text-secondary-text">
+                                <span class="text-accent font-semibold"><i class="fas fa-certificate mr-1"></i> Red Cross WSI</span>
+                                <span>Level 3–4 Lead</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coach 2 -->
+                    <div class="bg-background border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="h-60 w-full overflow-hidden relative">
+                            <img src="assests/team2.jpg" alt="Aisha Johnson" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                            <span class="absolute top-3 left-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">Toddler Lead</span>
+                        </div>
+                        <div class="p-5 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-primary-text">Aisha Johnson</h3>
+                            <p class="text-accent text-xs font-semibold mt-0.5">Youth Water Specialist &bull; 8+ Yrs</p>
+                            <p class="text-secondary-text text-xs mt-3 leading-relaxed flex-grow">Gentle and patient, Aisha specializes in soothing water anxiety, teaching back floats, and making toddler lessons fun.</p>
+                            <div class="pt-3 border-t border-border mt-4 flex items-center justify-between text-xs text-secondary-text">
+                                <span class="text-accent font-semibold"><i class="fas fa-heart-pulse mr-1"></i> Peds First Aid</span>
+                                <span>Ages 6mo–5yrs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coach 3 -->
+                    <div class="bg-background border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="h-60 w-full overflow-hidden relative">
+                            <img src="assests/team3.jpg" alt="Marcus Chen" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                            <span class="absolute top-3 left-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">Stroke Lead</span>
+                        </div>
+                        <div class="p-5 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-primary-text">Marcus Chen</h3>
+                            <p class="text-accent text-xs font-semibold mt-0.5">Stroke Refinement &bull; 10+ Yrs</p>
+                            <p class="text-secondary-text text-xs mt-3 leading-relaxed flex-grow">Passionate about stroke mechanics, bilateral breathing, and endurance kicks. Prepares young swimmers for school swim teams.</p>
+                            <div class="pt-3 border-t border-border mt-4 flex items-center justify-between text-xs text-secondary-text">
+                                <span class="text-accent font-semibold"><i class="fas fa-stopwatch mr-1"></i> USA Swimming</span>
+                                <span>Ages 6–12yrs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coach 4 -->
+                    <div class="bg-background border border-border rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col">
+                        <div class="h-60 w-full overflow-hidden relative">
+                            <img src="assests/Ab2.jpg" alt="Elena Rodriguez" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+                            <span class="absolute top-3 left-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">Water Safety Lead</span>
+                        </div>
+                        <div class="p-5 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-primary-text">Elena Rodriguez</h3>
+                            <p class="text-accent text-xs font-semibold mt-0.5">Confidence Coach &bull; 6+ Yrs</p>
+                            <p class="text-secondary-text text-xs mt-3 leading-relaxed flex-grow">Specializes in adaptive instruction and water confidence. Helps shy and hesitant children blossom into eager swimmers.</p>
+                            <div class="pt-3 border-t border-border mt-4 flex items-center justify-between text-xs text-secondary-text">
+                                <span class="text-accent font-semibold"><i class="fas fa-shield-halved mr-1"></i> Junior Lifeguard</span>
+                                <span>All Age Groups</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-10">
+                    <a href="instructors.html" class="btn-outline px-8 py-3 rounded-full font-semibold inline-block">Meet Full Coaching Staff</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== SECTION 7: CHILD-FOCUSED FACILITIES & AMENITIES ======== -->
+        <section class="py-16 bg-hover border-y border-border">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-14">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-background border border-border text-accent uppercase tracking-wider mb-3">State-Of-The-Art Aquatic Facility</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Designed For Kids &amp; <span class="text-accent">Comfort</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">From warm water temperatures to glass parent viewing lounges, every detail is engineered for safety, cleanliness, and peace of mind.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-12">
+                    <!-- Facility Card 1 -->
+                    <div class="bg-background rounded-2xl overflow-hidden border border-border shadow-sm hover:shadow-lg transition-all">
+                        <div class="h-52 w-full bg-cover bg-center relative" style="background-image: url('assests/indoor_pool_warm.jpg');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <span class="absolute bottom-3 left-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">90°F Warm Pool</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-primary-text mb-2">Heated Pool &amp; Toddler Ledge</h3>
+                            <p class="text-secondary-text text-sm">Kept at 90°F year-round so children stay relaxed and comfortable without shivering. Built-in shallow teaching ledges provide a secure standing area.</p>
+                            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                                <span class="px-2.5 py-1 rounded-md bg-hover text-accent font-medium">90°F Temp</span>
+                                <span class="px-2.5 py-1 rounded-md bg-hover text-accent font-medium">Shallow Steps</span>
+                                <span class="px-2.5 py-1 rounded-md bg-hover text-accent font-medium">Non-Slip Tiles</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Facility Card 2 -->
+                    <div class="bg-background rounded-2xl overflow-hidden border border-border shadow-sm hover:shadow-lg transition-all">
+                        <div class="h-52 w-full bg-cover bg-center relative" style="background-image: url('assests/kids_group_splash.jpg');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <span class="absolute bottom-3 left-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">Observation Lounge</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-primary-text mb-2">Glass-Walled Parent Viewing</h3>
+                            <p class="text-secondary-text text-sm">Enjoy an unobstructed, sound-insulated view of every lesson from our air-conditioned parent lounge equipped with free high-speed Wi-Fi and seating.</p>
+                            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                                <span class="px-2.5 py-1 rounded-md bg-hover text-accent font-medium">Free Wi-Fi</span>
+                                <span class="px-2.5 py-1 rounded-md bg-hover text-accent font-medium">Full View Glass</span>
+                                <span class="px-2.5 py-1 rounded-md bg-hover text-accent font-medium">Coffee Bar</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Facility Card 3 -->
+                    <div class="bg-background rounded-2xl overflow-hidden border border-border shadow-sm hover:shadow-lg transition-all">
+                        <div class="h-52 w-full bg-cover bg-center relative" style="background-image: url('assests/girl_kickboard.jpg');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <span class="absolute bottom-3 left-3 bg-accent text-white text-xs font-bold px-3 py-1 rounded-full">Safety &amp; Cleanliness</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-primary-text mb-2">UV Purification &amp; Safety Gear</h3>
+                            <p class="text-secondary-text text-sm">Advanced UV &amp; ozone sanitization means crystal clear water with zero harsh red-eye chlorine smell. Certified life jackets, kickboards, and fins are always available.</p>
+                            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+                                <span class="px-2.5 py-1 rounded-md bg-hover text-accent font-medium">UV Purified</span>
+                                <span class="px-2.5 py-1 rounded-md bg-hover text-accent font-medium">USCG Lifejackets</span>
+                                <span class="px-2.5 py-1 rounded-md bg-hover text-accent font-medium">Private Cabanas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <a href="facilities.html" class="btn-outline px-8 py-3 rounded-full font-semibold inline-block">Tour Academy Facilities</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======== SECTION 8: PARENT FREQUENTLY ASKED QUESTIONS (FAQ) ======== -->
+        <section class="py-20 bg-background">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+                <div class="text-center mb-14">
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-accent/10 text-accent uppercase tracking-wider mb-3">Helpful Answers</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Frequently Asked Questions for <span class="text-accent">Parents</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">Everything you need to know about starting swimming lessons with confidence.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ 1 -->
+                    <details class="group bg-hover border border-border rounded-2xl p-6 [&_summary::-webkit-details-marker]:hidden transition-all duration-200 open:shadow-md">
+                        <summary class="flex items-center justify-between cursor-pointer font-bold text-lg text-primary-text">
+                            <span>What if my child is afraid of water or cries during their first class?</span>
+                            <span class="transition group-open:rotate-180 text-accent"><i class="fas fa-chevron-down"></i></span>
+                        </summary>
+                        <p class="mt-4 text-secondary-text text-sm leading-relaxed border-t border-border pt-4">
+                            Hesitation is completely normal! Our instructors are specifically trained in gentle acclimation. We never force submersion. We start on our shallow teaching ledge with gentle song games, floating toys, and bubble blowing until your child feels comfortable and secure.
+                        </p>
+                    </details>
+
+                    <!-- FAQ 2 -->
+                    <details class="group bg-hover border border-border rounded-2xl p-6 [&_summary::-webkit-details-marker]:hidden transition-all duration-200 open:shadow-md">
+                        <summary class="flex items-center justify-between cursor-pointer font-bold text-lg text-primary-text">
+                            <span>What is the water temperature and why does it matter?</span>
+                            <span class="transition group-open:rotate-180 text-accent"><i class="fas fa-chevron-down"></i></span>
+                        </summary>
+                        <p class="mt-4 text-secondary-text text-sm leading-relaxed border-t border-border pt-4">
+                            Our pool is heated to a tropical 90°F (32°C). Cold water causes children's muscles to tense, teeth to chatter, and anxiety to rise. In our 90°F warm water, children's muscles relax, allowing them to focus happily on breath control and stroke learning.
+                        </p>
+                    </details>
+
+                    <!-- FAQ 3 -->
+                    <details class="group bg-hover border border-border rounded-2xl p-6 [&_summary::-webkit-details-marker]:hidden transition-all duration-200 open:shadow-md">
+                        <summary class="flex items-center justify-between cursor-pointer font-bold text-lg text-primary-text">
+                            <span>How strict is the 4:1 student-to-instructor ratio?</span>
+                            <span class="transition group-open:rotate-180 text-accent"><i class="fas fa-chevron-down"></i></span>
+                        </summary>
+                        <p class="mt-4 text-secondary-text text-sm leading-relaxed border-t border-border pt-4">
+                            Strict and guaranteed! We cap all group classes at a maximum of 4 children per certified instructor. This ensures your child spends their entire session actively swimming and receiving constant feedback, rather than waiting on the pool steps.
+                        </p>
+                    </details>
+
+                    <!-- FAQ 4 -->
+                    <details class="group bg-hover border border-border rounded-2xl p-6 [&_summary::-webkit-details-marker]:hidden transition-all duration-200 open:shadow-md">
+                        <summary class="flex items-center justify-between cursor-pointer font-bold text-lg text-primary-text">
+                            <span>What should we bring for the first lesson?</span>
+                            <span class="transition group-open:rotate-180 text-accent"><i class="fas fa-chevron-down"></i></span>
+                        </summary>
+                        <p class="mt-4 text-secondary-text text-sm leading-relaxed border-t border-border pt-4">
+                            Just a fitted swimsuit, a dry towel, and a smile! For children under 3 years old, a reusable swim diaper is required. We provide all sanitized kickboards, goggles, fins, and Coast Guard-approved flotation gear at no extra charge.
+                        </p>
+                    </details>
+
+                    <!-- FAQ 5 -->
+                    <details class="group bg-hover border border-border rounded-2xl p-6 [&_summary::-webkit-details-marker]:hidden transition-all duration-200 open:shadow-md">
+                        <summary class="flex items-center justify-between cursor-pointer font-bold text-lg text-primary-text">
+                            <span>How do progress ribbons and level advancement work?</span>
+                            <span class="transition group-open:rotate-180 text-accent"><i class="fas fa-chevron-down"></i></span>
+                        </summary>
+                        <p class="mt-4 text-secondary-text text-sm leading-relaxed border-t border-border pt-4">
+                            Our curriculum has 4 progressive levels. Coaches continuously record skills in our system. Whenever your child masters a key skill (e.g. 10-second back float or rhythmic freestyle kick), they receive a waterproof ribbon at the end of class, and advance to the next level when ready!
+                        </p>
+                    </details>
                 </div>
             </div>
         </section>

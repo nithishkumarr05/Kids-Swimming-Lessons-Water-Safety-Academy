@@ -170,6 +170,21 @@
             border-radius: 50%;
             background: rgba(14, 165, 233, 0.06);
             pointer-events: none;
+            z-index: 2;
+        }
+
+        /* High-contrast Atmospheric Hero Overlay for crystal-clear readability */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+        html[data-theme='dark'] .hero-overlay {
+            background: rgba(8, 47, 73, 0.94);
         }
 
         /* ====== ACHIEVEMENTS PAGE SPECIFIC STYLES ====== */
@@ -568,7 +583,8 @@
             letter-spacing: 1px;
             border: 2px solid var(--color-accent);
             color: var(--color-accent);
-            background: transparent;
+            background: var(--color-background);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             margin-bottom: 1rem;
         }
     </style>
@@ -644,7 +660,10 @@
     <main class="flex-grow">
 
         <!-- ======== SECTION 1: HERO ======== -->
-        <section class="relative overflow-hidden py-12 lg:py-20 bg-gradient-to-br from-brand-aqua via-brand-bg to-brand-aqua dark:from-brand-dark dark:via-brand-dark-card dark:to-brand-dark">
+        <section class="relative overflow-hidden py-12 lg:py-20 bg-cover bg-center" style="background-image: url('assests/swim_safety_float.jpg');">
+            <!-- Atmospheric Overlay for Readability in Light & Dark Themes -->
+            <div class="hero-overlay"></div>
+            
             <div class="water-shape w-96 h-96 -top-20 -right-20"></div>
             <div class="water-shape w-80 h-80 bottom-10 -left-20"></div>
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

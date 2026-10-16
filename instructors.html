@@ -11,26 +11,26 @@
     <style>
         :root, html[data-theme='light'] {
             --color-background: #FFFFFF;
-            --color-primary-text: #0C4A6E;
-            --color-secondary-text: #475569;
-            --color-accent: #0EA5E9;
+            --color-primary-text: #0F172A;
+            --color-secondary-text: #334155;
+            --color-accent: #0284C7;
             --color-accent-light: #38BDF8;
-            --color-accent-dark: #0284C7;
-            --color-border: #E0F2FE;
+            --color-accent-dark: #0369A1;
+            --color-border: #E2E8F0;
             --color-hover: #F0F9FF;
             --color-footer-bg: #082F49;
             --color-footer-text: #FFFFFF;
         }
         html[data-theme='dark'] {
             --color-background: #082F49;
-            --color-primary-text: #F0F9FF;
-            --color-secondary-text: #7DD3FC;
+            --color-primary-text: #F8FAFC;
+            --color-secondary-text: #E0F2FE;
             --color-accent: #38BDF8;
             --color-accent-light: #7DD3FC;
             --color-accent-dark: #0EA5E9;
-            --color-border: #0C4A6E;
+            --color-border: #1E3A5F;
             --color-hover: #0C4A6E;
-            --color-footer-bg: #082F49;
+            --color-footer-bg: #031D30;
             --color-footer-text: #FFFFFF;
         }
 
@@ -170,6 +170,21 @@
             border-radius: 50%;
             background: rgba(14, 165, 233, 0.06);
             pointer-events: none;
+            z-index: 2;
+        }
+
+        /* High-contrast Atmospheric Hero Overlay for crystal-clear readability */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+        html[data-theme='dark'] .hero-overlay {
+            background: rgba(8, 47, 73, 0.94);
         }
 
         /* ====== INSTRUCTORS PAGE SPECIFIC STYLES ====== */
@@ -516,12 +531,15 @@
     <main class="flex-grow">
 
         <!-- ======== SECTION 1: HERO ======== -->
-        <section class="relative overflow-hidden py-12 lg:py-20 bg-gradient-to-br from-brand-aqua via-brand-bg to-brand-aqua dark:from-brand-dark dark:via-brand-dark-card dark:to-brand-dark">
+        <section class="relative overflow-hidden py-12 lg:py-20 bg-cover bg-center" style="background-image: url('https://avatars.mds.yandex.net/i?id=e3b187681174fbecd6805f144f17eb1b42ac873a-5859250-images-thumbs&n=13');">
+            <!-- Atmospheric Overlay for Readability in Light & Dark Themes -->
+            <div class="hero-overlay"></div>
+            
             <div class="water-shape w-96 h-96 -top-20 -right-20"></div>
             <div class="water-shape w-80 h-80 bottom-10 -left-20"></div>
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="max-w-4xl mx-auto text-center">
-                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-border text-sm font-semibold text-accent shadow-sm mb-5">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background border border-border text-sm font-semibold text-accent shadow-sm mb-5">
                         <i class="fa-solid fa-chalkboard-teacher"></i> Meet Our Team
                     </div>
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary-text leading-tight">
@@ -580,46 +598,46 @@
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
                     <!-- Instructor 1 -->
                     <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-border shadow-sm hover:shadow-xl transition-shadow duration-300 group">
-                        <div class="w-16 h-16 rounded-2xl bg-hover flex items-center justify-center text-accent text-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-baby"></i>
+                        <div class="w-20 h-20 rounded-full overflow-hidden mb-6 border-2 border-accent shadow-md group-hover:scale-105 transition-transform duration-300">
+                            <img src="assests/team2.jpg" alt="Aisha Johnson" class="w-full h-full object-cover">
                         </div>
                         <h4 class="text-2xl font-bold text-primary-text mb-1">Aisha Johnson</h4>
-                        <p class="text-accent font-medium text-sm mb-5">Infant Swim Specialist &bull; 8+ Yrs</p>
+                        <p class="text-accent font-medium text-sm mb-5">Youth Water Specialist &bull; 8+ Yrs</p>
                         <p class="text-secondary-text text-sm leading-relaxed mb-6">
-                            Certified in infant survival swimming, bringing years of specialized experience working with our youngest swimmers.
+                            Certified in child water safety and gentle beginner acclimation, bringing patience and positivity to our youngest swimmers.
                         </p>
                         <div class="bg-hover/50 p-4 rounded-xl border-l-2 border-accent italic text-sm text-secondary-text">
-                            "There is nothing more rewarding than seeing a baby learn to float and smile in the water."
+                            "Every child progresses at their own pace. Building trust in the water creates confident swimmers for life."
                         </div>
                     </div>
 
                     <!-- Instructor 2 -->
                     <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-border shadow-sm hover:shadow-xl transition-shadow duration-300 group">
-                        <div class="w-16 h-16 rounded-2xl bg-hover flex items-center justify-center text-accent text-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-stopwatch"></i>
+                        <div class="w-20 h-20 rounded-full overflow-hidden mb-6 border-2 border-accent shadow-md group-hover:scale-105 transition-transform duration-300">
+                            <img src="assests/team3.jpg" alt="Marcus Chen" class="w-full h-full object-cover">
                         </div>
                         <h4 class="text-2xl font-bold text-primary-text mb-1">Marcus Chen</h4>
                         <p class="text-accent font-medium text-sm mb-5">Stroke Refinement Coach &bull; 10+ Yrs</p>
                         <p class="text-secondary-text text-sm leading-relaxed mb-6">
-                            With a background in competitive coaching, Marcus excels at fine-tuning strokes for advanced classes and competitive prep.
+                            Specializing in youth stroke mechanics, kickboard drills, and building endurance through engaging, supportive challenges.
                         </p>
                         <div class="bg-hover/50 p-4 rounded-xl border-l-2 border-accent italic text-sm text-secondary-text">
-                            "Perfect technique is the foundation of both speed and safety in the water."
+                            "When kids master rhythmic breathing and streamline kicks, their self-confidence in the pool skyrockets."
                         </div>
                     </div>
 
                     <!-- Instructor 3 -->
                     <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 border border-border shadow-sm hover:shadow-xl transition-shadow duration-300 group">
-                        <div class="w-16 h-16 rounded-2xl bg-hover flex items-center justify-center text-accent text-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-hand-holding-heart"></i>
+                        <div class="w-20 h-20 rounded-full overflow-hidden mb-6 border-2 border-accent shadow-md group-hover:scale-105 transition-transform duration-300">
+                            <img src="assests/Ab2.jpg" alt="Elena Rodriguez" class="w-full h-full object-cover">
                         </div>
                         <h4 class="text-2xl font-bold text-primary-text mb-1">Elena Rodriguez</h4>
-                        <p class="text-accent font-medium text-sm mb-5">Aquatic Therapist &bull; 6+ Yrs</p>
+                        <p class="text-accent font-medium text-sm mb-5">Water Confidence Coach &bull; 6+ Yrs</p>
                         <p class="text-secondary-text text-sm leading-relaxed mb-6">
-                            Holding a degree in Physical Therapy, Elena leads our adaptive programs and helps children overcome physical challenges.
+                            Passionate about helping timid beginners overcome hesitation and discover the joy of swimming in small, nurturing groups.
                         </p>
                         <div class="bg-hover/50 p-4 rounded-xl border-l-2 border-accent italic text-sm text-secondary-text">
-                            "Swimming is therapeutic. It heals, it builds strength, and it empowers."
+                            "Water safety is an essential life skill. Watching hesitant children turn into happy swimmers is pure magic."
                         </div>
                     </div>
                 </div>
@@ -671,7 +689,7 @@
                         <div class="absolute -bottom-6 -right-6 w-40 h-40 bg-accent-light/20 rounded-full blur-2xl pointer-events-none"></div>
                         
                         <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-800 transform transition-transform hover:scale-[1.02] duration-500">
-                            <img src="https://images.unsplash.com/photo-1600965962361-9035dbfd1c50?q=80&w=2070&auto=format&fit=crop" alt="Swimming instruction theory and methodology" class="w-full h-auto object-cover aspect-[4/3]" />
+                            <img src="assests/coach_child_lesson.jpg" alt="Swimming instructor teaching child floating and stroke fundamentals" class="w-full h-auto object-cover aspect-[4/3]" />
                             <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                             <div class="absolute bottom-6 left-6 right-6">
                                 <div class="bg-white/20 backdrop-blur-md rounded-2xl p-5 border border-white/30 text-white shadow-lg">

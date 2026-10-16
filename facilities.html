@@ -11,26 +11,26 @@
     <style>
         :root, html[data-theme='light'] {
             --color-background: #FFFFFF;
-            --color-primary-text: #0C4A6E;
-            --color-secondary-text: #475569;
-            --color-accent: #0EA5E9;
+            --color-primary-text: #0F172A;
+            --color-secondary-text: #334155;
+            --color-accent: #0284C7;
             --color-accent-light: #38BDF8;
-            --color-accent-dark: #0284C7;
-            --color-border: #E0F2FE;
+            --color-accent-dark: #0369A1;
+            --color-border: #E2E8F0;
             --color-hover: #F0F9FF;
             --color-footer-bg: #082F49;
             --color-footer-text: #FFFFFF;
         }
         html[data-theme='dark'] {
             --color-background: #082F49;
-            --color-primary-text: #F0F9FF;
-            --color-secondary-text: #7DD3FC;
+            --color-primary-text: #F8FAFC;
+            --color-secondary-text: #E0F2FE;
             --color-accent: #38BDF8;
             --color-accent-light: #7DD3FC;
             --color-accent-dark: #0EA5E9;
-            --color-border: #0C4A6E;
+            --color-border: #1E3A5F;
             --color-hover: #0C4A6E;
-            --color-footer-bg: #082F49;
+            --color-footer-bg: #031D30;
             --color-footer-text: #FFFFFF;
         }
 
@@ -170,6 +170,21 @@
             border-radius: 50%;
             background: rgba(14, 165, 233, 0.06);
             pointer-events: none;
+            z-index: 2;
+        }
+
+        /* High-contrast Atmospheric Hero Overlay for crystal-clear readability */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+        html[data-theme='dark'] .hero-overlay {
+            background: rgba(8, 47, 73, 0.94);
         }
 
         /* ====== FACILITIES PAGE SPECIFIC STYLES ====== */
@@ -523,12 +538,15 @@
     <main class="flex-grow">
 
         <!-- ======== SECTION 1: HERO ======== -->
-        <section class="relative overflow-hidden py-12 lg:py-20 bg-gradient-to-br from-brand-aqua via-brand-bg to-brand-aqua dark:from-brand-dark dark:via-brand-dark-card dark:to-brand-dark">
+        <section class="relative overflow-hidden py-12 lg:py-20 bg-cover bg-center" style="background-image: url('assests/kickboard_towers.jpg');">
+            <!-- Atmospheric Overlay for Readability in Light & Dark Themes -->
+            <div class="hero-overlay"></div>
+            
             <div class="water-shape w-96 h-96 -top-20 -right-20"></div>
             <div class="water-shape w-80 h-80 bottom-10 -left-20"></div>
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="max-w-4xl mx-auto text-center">
-                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-border text-sm font-semibold text-accent shadow-sm mb-5">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background border border-border text-sm font-semibold text-accent shadow-sm mb-5">
                         <i class="fa-solid fa-building"></i> World-Class Facilities
                     </div>
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary-text leading-tight">
@@ -561,7 +579,7 @@
 
                 <div class="grid lg:grid-cols-2 gap-10 items-center max-w-6xl mx-auto">
                     <div class="facility-card">
-                        <div class="card-image" style="background-image: url('assests/f.jpg');">
+                        <div class="card-image" style="background-image: url('assests/indoor_pool_warm.jpg');">
                             <span class="img-badge">Heated Indoor</span>
                         </div>
                         <div class="card-body">

@@ -11,26 +11,26 @@
     <style>
         :root, html[data-theme='light'] {
             --color-background: #FFFFFF;
-            --color-primary-text: #0C4A6E;
-            --color-secondary-text: #475569;
-            --color-accent: #0EA5E9;
+            --color-primary-text: #0F172A;
+            --color-secondary-text: #334155;
+            --color-accent: #0284C7;
             --color-accent-light: #38BDF8;
-            --color-accent-dark: #0284C7;
-            --color-border: #E0F2FE;
+            --color-accent-dark: #0369A1;
+            --color-border: #E2E8F0;
             --color-hover: #F0F9FF;
             --color-footer-bg: #082F49;
             --color-footer-text: #FFFFFF;
         }
         html[data-theme='dark'] {
             --color-background: #082F49;
-            --color-primary-text: #F0F9FF;
-            --color-secondary-text: #7DD3FC;
+            --color-primary-text: #F8FAFC;
+            --color-secondary-text: #E0F2FE;
             --color-accent: #38BDF8;
             --color-accent-light: #7DD3FC;
             --color-accent-dark: #0EA5E9;
-            --color-border: #0C4A6E;
+            --color-border: #1E3A5F;
             --color-hover: #0C4A6E;
-            --color-footer-bg: #082F49;
+            --color-footer-bg: #031D30;
             --color-footer-text: #FFFFFF;
         }
 
@@ -170,6 +170,21 @@
             border-radius: 50%;
             background: rgba(14, 165, 233, 0.06);
             pointer-events: none;
+            z-index: 2;
+        }
+
+        /* High-contrast Atmospheric Hero Overlay for crystal-clear readability */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            pointer-events: none;
+            z-index: 1;
+        }
+        html[data-theme='dark'] .hero-overlay {
+            background: rgba(8, 47, 73, 0.94);
         }
 
         /* ====== HOME 2 SPECIFIC STYLES ====== */
@@ -435,14 +450,17 @@
     <main class="flex-grow">
 
         <!-- ======== SECTION 1: HERO ======== -->
-        <section class="relative overflow-hidden py-10 lg:py-20 bg-gradient-to-br from-brand-aqua via-brand-bg to-brand-aqua dark:from-brand-dark dark:via-brand-dark-card dark:to-brand-dark">
+        <section class="relative overflow-hidden py-12 lg:py-20 bg-cover bg-center" style="background-image: url('assests/kids_swimming_hero2.jpg');">
+            <!-- Atmospheric Overlay for Readability in Light & Dark Themes -->
+            <div class="hero-overlay"></div>
+            
             <div class="water-shape w-96 h-96 -top-20 -right-20"></div>
             <div class="water-shape w-80 h-80 bottom-10 -left-20"></div>
             <div class="water-shape w-64 h-64 top-1/2 left-1/3"></div>
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
                     <div class="lg:w-1/2 w-full text-center lg:text-left space-y-6">
-                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-border text-sm font-semibold text-accent shadow-sm">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background border border-border text-sm font-semibold text-accent shadow-sm">
                             <i class="fa-solid fa-shield-halved"></i> Water Safety Academy
                         </div>
                         <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary-text leading-tight">
@@ -463,9 +481,16 @@
                     </div>
                     <div class="lg:w-1/2 w-full relative">
                         <div class="absolute inset-0 bg-accent opacity-15 blur-3xl rounded-full transform scale-90 translate-x-10 translate-y-10"></div>
-                        <div class="img-placeholder w-full h-[300px] md:h-[400px] lg:h-[480px] rounded-3xl shadow-2xl border-4 border-white" style="background-image: url('assests/h2.jpg');"></div>
-                        <!-- Floating badge -->
-                        
+                        <div class="img-placeholder w-full h-[320px] md:h-[420px] lg:h-[480px] rounded-3xl shadow-2xl border-4 border-white dark:border-gray-800 overflow-hidden relative" style="background-image: url('assests/kids_group_splash.jpg');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                            <div class="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 justify-between items-center text-white text-xs">
+                                <span class="bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 font-semibold flex items-center gap-1.5">
+                                    <i class="fa-solid fa-medal text-accent-light"></i> 100% Water Safety Certified
+                                </span>
+                                <span class="bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 font-semibold flex items-center gap-1.5">
+                                    <i class="fa-solid fa-heart text-accent-light"></i> 1,200+ Happy Swimmers
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -476,52 +501,87 @@
         <section class="py-16 bg-background">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-12">
-                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-accent/10 text-accent uppercase tracking-wider mb-3">Essential Rules</span>
-                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Water Safety <span class="text-accent">Rules</span></h2>
-                    <p class="text-secondary-text text-lg mt-3">Five golden rules every child should know before entering any body of water.</p>
+                    <span class="inline-block text-xs font-bold px-4 py-1.5 rounded-full bg-accent/10 text-accent uppercase tracking-wider mb-3">Essential Safety Guidelines</span>
+                    <h2 class="text-3xl lg:text-4xl font-extrabold text-primary-text">Core Water Safety <span class="text-accent">Principles</span></h2>
+                    <p class="text-secondary-text text-lg mt-3">Essential habits we teach every child to build confidence, awareness, and safe pool enjoyment.</p>
                 </div>
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
                     <!-- Rule 1 -->
-                    <div class="rule-card">
-                        <span class="rule-number">01</span>
-                        <div class="rule-icon"><i class="fas fa-user-check"></i></div>
-                        <h3 class="text-lg font-bold text-primary-text">Never Swim Alone</h3>
-                        <p class="text-secondary-text text-sm mt-2">Always swim with a buddy or adult supervisor. The buddy system saves lives.</p>
+                    <div class="rule-card p-0 overflow-hidden border border-border rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="h-36 w-full bg-cover bg-center relative" style="background-image: url('assests/parent_child_swim.jpg');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <span class="rule-number absolute top-3 right-3 text-white/90">01</span>
+                            <span class="absolute bottom-2 left-3 text-white text-xs font-bold px-2.5 py-0.5 rounded-full bg-accent">Supervised Swim</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-lg font-bold text-primary-text">Always Swim With a Buddy</h3>
+                            <p class="text-secondary-text text-xs mt-2">Children learn to always swim with an adult instructor or trusted buddy nearby, fostering vigilance and team awareness.</p>
+                        </div>
                     </div>
+
                     <!-- Rule 2 -->
-                    <div class="rule-card">
-                        <span class="rule-number">02</span>
-                        <div class="rule-icon"><i class="fas fa-hand-paper"></i></div>
-                        <h3 class="text-lg font-bold text-primary-text">Walk, Don't Run</h3>
-                        <p class="text-secondary-text text-sm mt-2">Pool decks are slippery. Walking prevents falls and dangerous accidents.</p>
+                    <div class="rule-card p-0 overflow-hidden border border-border rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="h-36 w-full bg-cover bg-center relative" style="background-image: url('assests/kids_lineup_lesson.jpg');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <span class="rule-number absolute top-3 right-3 text-white/90">02</span>
+                            <span class="absolute bottom-2 left-3 text-white text-xs font-bold px-2.5 py-0.5 rounded-full bg-accent">Deck Safety</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-lg font-bold text-primary-text">Walk, Never Run on Deck</h3>
+                            <p class="text-secondary-text text-xs mt-2">Pool surfaces get wet and slippery. We reinforce calm walking habits from day one to maintain safety before entering the water.</p>
+                        </div>
                     </div>
+
                     <!-- Rule 3 -->
-                    <div class="rule-card">
-                        <span class="rule-number">03</span>
-                        <div class="rule-icon"><i class="fas fa-eye"></i></div>
-                        <h3 class="text-lg font-bold text-primary-text">Look Before You Leap</h3>
-                        <p class="text-secondary-text text-sm mt-2">Never dive into unknown water. Check depth and look for obstacles first.</p>
+                    <div class="rule-card p-0 overflow-hidden border border-border rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="h-36 w-full bg-cover bg-center relative" style="background-image: url('assests/indoor_pool_warm.jpg');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <span class="rule-number absolute top-3 right-3 text-white/90">03</span>
+                            <span class="absolute bottom-2 left-3 text-white text-xs font-bold px-2.5 py-0.5 rounded-full bg-accent">Depth Awareness</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-lg font-bold text-primary-text">Look Before Entering</h3>
+                            <p class="text-secondary-text text-xs mt-2">Students learn to verify water depth, locate pool steps, and never jump without checking for other swimmers first.</p>
+                        </div>
                     </div>
+
                     <!-- Rule 4 -->
-                    <div class="rule-card">
-                        <span class="rule-number">04</span>
-                        <div class="rule-icon"><i class="fas fa-life-ring"></i></div>
-                        <h3 class="text-lg font-bold text-primary-text">Use Safety Gear</h3>
-                        <p class="text-secondary-text text-sm mt-2">Wear a life jacket in open water. Floaties are toys, not life-saving devices.</p>
+                    <div class="rule-card p-0 overflow-hidden border border-border rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="h-36 w-full bg-cover bg-center relative" style="background-image: url('assests/girl_kickboard.jpg');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <span class="rule-number absolute top-3 right-3 text-white/90">04</span>
+                            <span class="absolute bottom-2 left-3 text-white text-xs font-bold px-2.5 py-0.5 rounded-full bg-accent">Flotation &amp; Kicking</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-lg font-bold text-primary-text">Master Kickboard &amp; Float</h3>
+                            <p class="text-secondary-text text-xs mt-2">Using kickboards and buoyancy aids builds proper body positioning, strong propulsion, and relaxed breathing in water.</p>
+                        </div>
                     </div>
+
                     <!-- Rule 5 -->
-                    <div class="rule-card">
-                        <span class="rule-number">05</span>
-                        <div class="rule-icon"><i class="fas fa-phone-volume"></i></div>
-                        <h3 class="text-lg font-bold text-primary-text">Call for Help</h3>
-                        <p class="text-secondary-text text-sm mt-2">If someone is in trouble, shout for help. Never jump in to rescue alone.</p>
+                    <div class="rule-card p-0 overflow-hidden border border-border rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="h-36 w-full bg-cover bg-center relative" style="background-image: url('assests/swim_safety_float.jpg');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <span class="rule-number absolute top-3 right-3 text-white/90">05</span>
+                            <span class="absolute bottom-2 left-3 text-white text-xs font-bold px-2.5 py-0.5 rounded-full bg-accent">Junior Rescue</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-lg font-bold text-primary-text">Reach or Throw, Don't Go</h3>
+                            <p class="text-secondary-text text-xs mt-2">Kids learn that if a peer needs assistance, they should reach with a pool noodle, throw a ring buoy, and call a lifeguard.</p>
+                        </div>
                     </div>
-                    <!-- Bonus Card -->
-                    <div class="rule-card" style="border-color: var(--color-accent);">
-                        <span class="rule-number">★</span>
-                        <div class="rule-icon"><i class="fas fa-star"></i></div>
-                        <h3 class="text-lg font-bold text-primary-text">Learn CPR Basics</h3>
-                        <p class="text-secondary-text text-sm mt-2">Every parent should know basic CPR. We offer free workshops monthly.</p>
+
+                    <!-- Rule 6 -->
+                    <div class="rule-card p-0 overflow-hidden border border-border rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300">
+                        <div class="h-36 w-full bg-cover bg-center relative" style="background-image: url('assests/coach_child_lesson.jpg');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                            <span class="rule-number absolute top-3 right-3 text-white/90">★</span>
+                            <span class="absolute bottom-2 left-3 text-white text-xs font-bold px-2.5 py-0.5 rounded-full bg-accent">Certified Coaches</span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-lg font-bold text-primary-text">Learn With Certified Coaches</h3>
+                            <p class="text-secondary-text text-xs mt-2">Structured lessons with certified youth instructors build water confidence step-by-step in a fun and encouraging environment.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -592,7 +652,7 @@
                             We follow a structured progression that takes children from complete water beginners to confident, safety-conscious swimmers. Each stage builds on the previous one.
                         </p>
                         <div class="mt-8">
-                            <div class="img-placeholder h-64 rounded-3xl shadow-lg border border-border" style="background-image: url('assests/h3.jpg');"></div>
+                            <div class="img-placeholder h-64 rounded-3xl shadow-lg border border-border" style="background-image: url('assests/swim_safety_class.jpg');"></div>
                         </div>
                     </div>
                     <div class="pt-4">
